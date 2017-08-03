@@ -48,14 +48,13 @@ const mapState = (state) => {
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id
   }
-  }
 };
+
 
 const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
       dispatch(me())
-    }
     }
   }
 };
