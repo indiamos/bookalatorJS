@@ -18,7 +18,7 @@ function generateUsers() {
   let users = [User.build({
     firstName: 'India',
     lastName: 'Amos',
-    email: 'india@indiamos.com',
+    email: 'iamos0@gmail.com',
     password: 'india',
     isAdmin: true,
     billingAddress: '5 Hanover Square',
