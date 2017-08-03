@@ -21,12 +21,12 @@ const User = db.define('user', {
 
 module.exports = User;
 
-/* ----------------------- INSTANCEMETHODS ----------------------- */
+/* ----------------------- INSTANCE METHODS ----------------------- */
 User.prototype.correctPassword = function (candidatePwd) {
   return User.encryptPassword(candidatePwd, this.salt) === this.password
 }
 
-/* ----------------------- CLASSMETHODS ----------------------- */
+/* ----------------------- CLASS METHODS ----------------------- */
 User.generateSalt = function () {
   return crypto.randomBytes(16).toString('base64')
 }
