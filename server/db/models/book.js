@@ -10,9 +10,8 @@ const Book = db.define('book', {
       type: INTEGER,
       allowNull: false
     },
-    coverURL: {
-      type: STRING,
-      defaultValue: '/img/cover.png'
+    text: {
+      type: TEXT
     },
     wordCount: {
       type: INTEGER,
@@ -20,10 +19,17 @@ const Book = db.define('book', {
         min: 0
       }
     },
+    coverURL: {
+      type: STRING,
+      defaultValue: '/img/cover.png'
+    },
     pgURL: {
-      type: TEXT
+      type: STRING
+    },
+    wikipediaURL: {
+      type: STRING
     }
   }
 )
 
-module.exports = Book
+module.exports = Book;
