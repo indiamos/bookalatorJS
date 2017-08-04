@@ -14,4 +14,5 @@ See the boilermaker README for deploy instructions: https://github.com/fullstack
 ## Colophon
 
 * This repo is based on https://github.com/FullstackAcademy/boilermaker, with reference to https://github.com/Faradey27/react-redux-webpack2-starterkit.
-* Book icons by logan from the Noun Project: https://thenounproject.com/search/?q=book&i=973057, https://thenounproject.com/search/?q=book&i=973047
+* Icons by logan from the Noun Project: https://thenounproject.com/search/?q=book&i=973057, https://thenounproject.com/search/?q=book&i=973047, 
+https://thenounproject.com/logan433/uploads/?i=973070
