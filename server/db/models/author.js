@@ -1,4 +1,4 @@
-const {ENUM, INTEGER, STRING, TEXT} = require('sequelize');
+const {ENUM, INTEGER, STRING} = require('sequelize');
 const db = require('../db');
 
 const Author = db.define('author', {
@@ -27,7 +27,7 @@ const Author = db.define('author', {
       defaultValue: '/img/person.png'
     },
     wikipediaURL: {
-      type: TEXT
+      type: STRING
     }
   }
 )
