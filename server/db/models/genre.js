@@ -7,6 +7,6 @@ const Genre = db.define('genre', {
       allowNull: false
     }
   }
-)
+);
 
 module.exports = Genre;
