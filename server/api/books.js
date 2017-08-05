@@ -2,19 +2,18 @@ const router = require('express').Router()
 const { Book, Word } = require('../db/models')
 module.exports = router;
 
-// wordTokenizer from the natural module splits a string up into words and returns an array. It may not be very intelligent about apostrophes.
 const natural = require('natural');
-const tokenizer = new natural.WordTokenizer();
-// console.log(tokenizer.tokenize("your dog has fleas."));
+const wordTokenizer = new natural.WordTokenizer();
+const sentenceTokenizer = new natural.SentenceTokenizer();
 
-// GET      /api/books/                   // returns metadata for all books
-// POST     /api/books/                   // creates a new book
-// GET      /api/books/:bookId            // returns metadata for a given book
-// PUT      /api/books/:bookId            // updates a book
-// DELETE   /api/books/:bookId            // deletes a book
-// GET      /api/books/:bookId/:word      // returns all the sentences in a given book that contain a particular word
-// GET      /api/books/:bookId/sentences  // returns all the sentences in a given book
-// GET      /api/books/:bookId/words      // returns a list of all words in a book
+// GET      /api/books/                     // returns metadata for all books
+// POST     /api/books/                     // creates a new book
+// GET      /api/books/:bookId              // returns metadata for a given book
+// PUT      /api/books/:bookId              // updates a book
+// DELETE   /api/books/:bookId              // deletes a book
+// GET      /api/books/:bookId/word/:word   // returns all sentences in a given book that contain a given word
+// GET      /api/books/:bookId/sentences    // returns all  sentences in a given book
+// GET      /api/books/:bookId/words        // returns all words in a book
 
 // GET /api/books/
 router.get('/', (req, res, next) => {
@@ -60,17 +59,10 @@ router.delete('/:bookId', (req, res, next) => {
 
 // ------------------------ BOOK-WORD ROUTES -----------------------------------
 
-// Given a lump of text, return an array of its sentences.
-// It would probably be a good idea to store this in the database.
-function sentencize(text) {
-  return text.match( /[^\.!\?]+[\.!\?]+/gi );
-}
-
 // Given a lump of text and a word to search for, return an array of sentences that contain the word.
 // It might be a good idea to store these results in the database, for faster subsequent lookups.
-
 function findSentences(text, word) {
-  return sentencize(text).filter(sentence => {
+  return sentenceTokenizer.tokenize(text).filter(sentence => {
     return sentence.trim().indexOf(word) > -1;
   });
 }
@@ -86,28 +78,25 @@ router.get('/:bookId/word/:word', (req, res, next) => {
 
 // GET /api/books/:bookId/sentences
 // Returns an array of all sentences in a given book
+// To do: Should check whether the book has already been tokenized.
+// If true, retrieve existing sentence list.
+// If false, post the array to the sentence table.
 router.get('/:bookId/sentences', (req, res, next) => {
   Book.findById(req.params.bookId)
-  .then(foundBook => {
-    // console.log('foundBook.text:\n', foundBook.text);
-    return sentencize(foundBook.text);
-  })
-  .then(allsentences => {
-    // console.log('------------------\nallsentences[5]:', allsentences[5]);
-    res.json(allsentences)
-  })
+  .then(foundBook => sentenceTokenizer.tokenize(foundBook.text))
+  .then(allSentences => res.json(allSentences))
   .catch(next);
 });
 
 // GET /api/books/:bookId/words
 // Returns a list of all words in a book.
-// Should check whether the book has already been tokenized.
+// To do: Should check whether the book has already been tokenized.
 // If true, retrieve existing word list.
 // If false, post the array to the word table.
 router.get('/:bookId/words', (req, res, next) => {
   Book.findById(req.params.bookId)
-  .then(foundBook => tokenizer.tokenize(foundBook))
-  .then(wordArray => res.json(wordArray))
+  .then(foundBook => wordTokenizer.tokenize(foundBook.text))
+  .then(allWords => res.json(allWords))
   .catch(next);
 });
 
