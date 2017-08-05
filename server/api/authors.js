@@ -35,7 +35,8 @@ router.put('/:authorId', (req, res, next) => {
   Author.findById(req.params.authorId)
   .then(author => author.update(req.body))
   .then(updated => {
-    res.send({ message: 'Updated sucessfully', updated.dataValues })
+    let revised = updated.dataValues; // putting this value directly in line 39 errors
+    res.send({ message: 'Updated sucessfully', revised })
   })
   .catch(next);
 });
@@ -54,9 +55,11 @@ router.delete('/:authorId', (req, res, next) => {
 router.get('/:authorId/books', (req, res, next) => {
   Book.findAll({
     include: [
-      model: Author,
-      where: {
-        id: req.params.authorId
+      {
+        model: Author, as: 'Creators',
+        where: {
+          id: req.params.authorId
+        }
       }
     ]
   })

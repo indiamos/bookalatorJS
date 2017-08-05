@@ -42,9 +42,11 @@ router.get('/:word/lines', (req, res, next) => {
 router.get('/:word/books', (req, res, next) => {
   Book.findAll({
     include: [
-      model: Word,
-      where: {
-        word: req.params.word
+      {
+        model: Word,
+        where: {
+          word: req.params.word
+        }
       }
     ]
   })
