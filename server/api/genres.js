@@ -1,6 +1,5 @@
 const router = require('express').Router()
-const { Genre } = require('../db/models')
-const { Book } = require('../db/models')
+const { Book, Genre } = require('../db/models')
 module.exports = router;
 
 // GET      /api/genres/                // returns all genre objects

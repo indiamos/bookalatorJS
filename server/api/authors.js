@@ -1,6 +1,5 @@
 const router = require('express').Router()
-const { Author } = require('../db/models')
-const { Book } = require('../db/models')
+const { Author, Book } = require('../db/models')
 module.exports = router;
 
 // GET      /api/authors/                   // returns all author objects
