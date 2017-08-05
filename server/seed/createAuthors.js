@@ -7,7 +7,7 @@ function generateAuthors () {
   let authors = [];
   authors.push(Author.build({ // id = 1
     firstName: 'Jane',
-    lastName:'Austen',
+    lastName: 'Austen',
     gender: 'female',
     birthYear: 1775,
     deathYear: 1817,
@@ -16,7 +16,7 @@ function generateAuthors () {
   }));
   authors.push(Author.build({ // id = 2
     firstName: 'G. K.',
-    lastName:'Chesterton',
+    lastName: 'Chesterton',
     gender: 'male',
     birthYear: 1874,
     deathYear: 1936,
@@ -25,7 +25,7 @@ function generateAuthors () {
   }));
   authors.push(Author.build({ // id = 3
     firstName: 'Maria',
-    lastName:'Edgeworth',
+    lastName: 'Edgeworth',
     gender: 'female',
     birthYear: 1768,
     deathYear: 1849,
@@ -34,7 +34,7 @@ function generateAuthors () {
   }));
   authors.push(Author.build({ // id = 4
     firstName: 'Charlotte Perkins',
-    lastName:'Gilman',
+    lastName: 'Gilman',
     gender: 'female',
     birthYear: 1860,
     deathYear: 1935,
@@ -43,7 +43,7 @@ function generateAuthors () {
   }));
   authors.push(Author.build({ // id = 5
     firstName: 'Rafael',
-    lastName:'Sabatini',
+    lastName: 'Sabatini',
     gender: 'male',
     birthYear: 1875,
     deathYear: 1950,
@@ -52,7 +52,7 @@ function generateAuthors () {
   }));
   authors.push(Author.build({ // id = 6
     firstName: 'William',
-    lastName:'Shakespeare',
+    lastName: 'Shakespeare',
     gender: 'male',
     birthYear: 1564,
     deathYear: 1616,

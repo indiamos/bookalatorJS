@@ -1,22 +1,21 @@
 const router = require('express').Router()
-const { Book, Word } = require('../db/models')
-module.exports = {
-  router,
-  findSentences
-};
+const { Book, Sentence, Word } = require('../db/models')
+module.exports =  router;
 
 const natural = require('natural');
 const wordTokenizer = new natural.WordTokenizer();
 const sentenceTokenizer = new natural.SentenceTokenizer();
 
-// GET      /api/books/                     // returns metadata for all books
-// POST     /api/books/                     // creates a new book
-// GET      /api/books/:bookId              // returns metadata for a given book
-// PUT      /api/books/:bookId              // updates a book
-// DELETE   /api/books/:bookId              // deletes a book
-// GET      /api/books/:bookId/word/:word   // returns all sentences in a given book that contain a given word
-// GET      /api/books/:bookId/sentences    // returns all  sentences in a given book
-// GET      /api/books/:bookId/words        // returns all words in a book
+// GET    /api/books/                         // returns all book objects
+// POST   /api/books/                         // creates a new book
+// GET    /api/books/:bookId                  // returns one book object
+// PUT    /api/books/:bookId                  // updates a book
+// DELETE /api/books/:bookId                  // deletes a book
+// GET    /api/books/:bookId/sentences        // returns all of a book’s sentences
+// POST   /api/books/:bookId/sentences        // stores all of a book’s sentences
+// GET    /api/books/:bookId/sentences/:word  // returns all of a book’s sentences that contain a given word
+// GET    /api/books/:bookId/words            // returns all words in a book
+// POST   /api/books/:bookId/words            // stores all of a book’s words
 
 // GET /api/books/
 router.get('/', (req, res, next) => {
@@ -61,36 +60,86 @@ router.delete('/:bookId', (req, res, next) => {
   .catch(next);
 });
 
-// ------------------------ BOOK-WORD ROUTES -----------------------------------
+// ----------------------- BOOK-SENTENCE ROUTES --------------------------------
 
-// Given a lump of text and a word to search for, return an array of sentences that contain the word.
-// It might be a good idea to store these results in the database, for faster subsequent lookups.
-function findSentences(text, word) {
-  return sentenceTokenizer.tokenize(text).filter(sentence => {
-    return sentence.trim().indexOf(word) > -1;
-  });
-}
-
-// GET /api/books/:bookId/word/:word
-// Returns an array of all sentences in a given book that contain a given word.
-router.get('/:bookId/word/:word', (req, res, next) => {
-  Book.findById(req.params.bookId)
-  .then(foundBook => findSentences(foundBook.text, req.params.word))
-  .then(foundsentences => res.json(foundsentences))
-  .catch(next);
-});
+// GET    /api/books/:bookId/sentences        // returns all of a book’s sentences
+// POST   /api/books/:bookId/sentences        // stores all of a book’s sentences
+// GET    /api/books/:bookId/sentences/:word  // returns all of a book’s sentences that contain a given word
 
 // GET /api/books/:bookId/sentences
-// Returns an array of all sentences in a given book
-// To do: Should check whether the book has already been tokenized.
-// If true, retrieve existing sentence list.
-// If false, post the array to the sentence table.
+// Returns all of a book’s sentences
 router.get('/:bookId/sentences', (req, res, next) => {
-  Book.findById(req.params.bookId)
-  .then(foundBook => sentenceTokenizer.tokenize(foundBook.text))
-  .then(allSentences => res.json(allSentences))
+  Sentence.findAll({
+    where: {
+      bookId: req.params.bookId
+    }
+  })
+  .then(bookSentences => res.json(bookSentences))
   .catch(next);
 });
+
+// POST /api/books/:bookId/sentences
+// Stores all of a book’s sentences - should happen during the import process—probably as an afterCreate hook.
+router.post('/:bookId/sentences', (req, res, next) => {
+  // 1. get the book’s text
+  Book.findById(req.params.bookId)
+  // 2. tokenize the text
+  .then(foundBook => {
+    if(foundBook.sentencesTokenized) {
+      res.sendStatus(418)
+    }
+    return sentenceTokenizer.tokenize(foundBook.text)
+  })
+  // 3. build an array of objects
+  // This whole step is based on the process in the seed file, which in turn is based on the boilermaker repo. Which is why it’s so fucking convoluted.
+  .then(sentenceArray => {
+    function buildSentences() {
+      let sentenceBuilders = [];
+      for(let i = 0; i < sentenceArray.length; i++) {
+        sentenceBuilders.push(Sentence.build({
+          sentence: sentenceArray[i],
+          index: i,
+          bookId: 'female',
+        }));
+      }
+      return sentenceBuilders;
+    }
+
+    function createSentences() {
+      return Promise.map(buildSentences(), function (sentence) {
+        return sentence.save();
+      });
+    }
+
+    function postSentences() {
+      return Promise.all([createSentences()]); // this doesn't need to be a Promise.all
+    }
+  // 4. post the built objects
+    return postSentences();
+  })
+  .then(postedSentences => res.status(201).json(postedSentences))
+  .catch(next);
+});
+
+// GET /api/books/:bookId/sentences/:word
+// Returns all of a book’s sentences that contain a given word
+router.get('/:bookId/sentences/:word', (req, res, next) => {
+  Sentence.findAll({
+    where: {
+      bookId: req.params.bookId
+    }
+  })
+  .then(bookSentences => bookSentences.filter(sentence => {
+    return sentence.indexOf(req.params.word) > -1;
+  }))
+  .then(wordSentences => res.json(wordSentences))
+  .catch(next);
+});
+
+// ------------------------ BOOK-WORD ROUTES -----------------------------------
+
+// GET    /api/books/:bookId/words            // returns all words in a book
+// POST   /api/books/:bookId/words            // stores all of a book’s words
 
 // GET /api/books/:bookId/words
 // Returns a list of all words in a book.
