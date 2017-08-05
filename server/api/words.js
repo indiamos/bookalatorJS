@@ -1,17 +1,18 @@
-const router = require('express').Router()
-const { Book, Word } = require('../db/models')
+const router = require('express').Router();
+const { Book, Word } = require('../db/models');
+const { findSentences } = require('./books');
 module.exports = router;
 
-// wordTokenizer from the natural module splits a string up into words and returns an array. It may not be very intelligent about apostrophes.
-// const natural = require('natural');
-// const tokenizer = new natural.WordTokenizer();
-// console.log(tokenizer.tokenize("your dog has fleas."));
+const natural = require('natural');
+const wordTokenizer = new natural.WordTokenizer();
+const sentenceTokenizer = new natural.SentenceTokenizer();
 
 // GET /api/words/            // returns all words from all books in the collection!
-// GET /api/words/:word       // returns all books that contain a given word
-// GET /api/words/:word/lines // returns all sentences from all books that contain a given word
+// GET /api/words/:word       // returns all books containing a given word
+// GET /api/words/:word/lines // returns all sentences from all books containing a given word
 
 // GET /api/words/
+// Returns all word objects from all books in the collection!
 router.get('/', (req, res, next) => {
   Word.findAll()
   .then(words => res.json(words))
@@ -19,27 +20,18 @@ router.get('/', (req, res, next) => {
 });
 
 // GET /api/words/:word
+// Returns all book objects that contain a given word
+// router.get('/:word', (req, res, next) => {
+//   Book.findAll({
+//     where: {
+//       word: req.params.wordId
+//     }
+//   })
+//   .then(word => res.json(word))
+//   .catch(next);
+// });
+
 router.get('/:word', (req, res, next) => {
-  Book.findAll({
-    where: {
-      word: req.params.wordId
-    }
-  })
-  .then(word => res.json(word))
-  .catch(next);
-});
-
-// GET /api/words/:word/lines
-// Returns an array of all sentences in a given word that contain a given word.
-router.get('/:word/lines', (req, res, next) => {
-  Word.findById(req.params.wordId)
-  .then(foundWord => findSentences(foundWord.text, req.params.word))
-  .then(foundsentences => res.json(foundsentences))
-  .catch(next);
-});
-
-// GET /api/words/:word/books
-router.get('/:word/books', (req, res, next) => {
   Book.findAll({
     include: [
       {
@@ -53,3 +45,16 @@ router.get('/:word/books', (req, res, next) => {
   .then(books => res.json(books))
   .catch(next);
 });
+
+// GET /api/words/:word/lines
+// Returns all sentence objects in the collection that contain a given word
+// router.get('/:word/lines', (req, res, next) => {
+//   const pattern = '[\b'+req.params.word+'|\b'+req.params.word+'s]'; // includes plurals, dumbly
+//   Sentence.findAll({
+//     where: {
+//       $iRegexp: pattern
+//     }
+//   })
+//   .then(foundSentences => res.json(foundSentences))
+//   .catch(next);
+// });

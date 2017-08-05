@@ -1,6 +1,9 @@
 const router = require('express').Router()
 const { Book, Word } = require('../db/models')
-module.exports = router;
+module.exports = {
+  router,
+  findSentences
+};
 
 const natural = require('natural');
 const wordTokenizer = new natural.WordTokenizer();
@@ -23,6 +26,7 @@ router.get('/', (req, res, next) => {
 });
 
 // POST /api/books/
+// Books should be tokenized during the import process—probably as an afterCreate hook.
 router.post('/', (req, res, next) => {
   Book.create(req.body)
   .then(book => res.status(201).json(book))
