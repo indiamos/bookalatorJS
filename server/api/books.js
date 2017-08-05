@@ -31,16 +31,14 @@ router.post('/', (req, res, next) => {
 
 // GET /api/books/:bookId
 router.get('/:bookId', (req, res, next) => {
-  const id = req.params.bookId;
-  Book.findById(id)
+  Book.findById(req.params.bookId)
   .then(book => res.json(book))
   .catch(next);
 });
 
 // PUT /api/books/:bookId
 router.put('/:bookId', (req, res, next) => {
-  const id = req.params.bookId;
-  Book.findById(id)
+  Book.findById(req.params.bookId)
   .then(book => book.update(req.body))
   .then(updated => {
     res.send({ message: 'Updated sucessfully', updated.dataValues })
@@ -50,8 +48,7 @@ router.put('/:bookId', (req, res, next) => {
 
 // DELETE /api/books/:bookId
 router.delete('/:bookId', (req, res, next) => {
-  const id = req.params.bookId;
-  Book.findById(id)
+  Book.findById(req.params.bookId)
   .then(foundBook => foundBook.destroy())
   .then(result => {
     res.send({ message: 'Deleted successfully' })
@@ -79,10 +76,8 @@ function findSentences(text, word) {
 // GET /api/books/:bookId/:word
 // Returns an array of all sentences in a given book that contain a given word.
 router.get('/:bookId/:word', (req, res, next) => {
-  const id = req.params.bookId;
-  const word = req.params.word;
-  Book.findById(id)
-  .then(foundBook => findSentences(foundBook.text, word))
+  Book.findById(req.params.bookId)
+  .then(foundBook => findSentences(foundBook.text, req.params.word))
   .then(foundsentences => res.json(foundsentences))
   .catch(next);
 });
@@ -93,8 +88,7 @@ router.get('/:bookId/:word', (req, res, next) => {
 // If true, retrieve existing word list.
 // If false, post the array to the word table.
 router.get('/:bookId/words', (req, res, next) => {
-  const id = req.params.bookId;
-  Book.findById(id)
+  Book.findById(req.params.bookId)
   .then(foundBook => tokenizer.tokenize(foundBook))
   .then(wordArray => res.json(wordArray))
   .catch(next);
