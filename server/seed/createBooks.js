@@ -12,9 +12,9 @@ function convertToString(filename) {
   return fs.readFileSync(__dirname + '/corpus/' + filename).toString();
 }
 
-function generateBooks () {
+function generateBooks() {
   let books = [];
-  books.push(Book.build({ // id = 1
+  books.push(Book.build({
     title: 'Emma',
     year: 1815,
     text: naturalGutenberg['austen-emma'],
@@ -24,7 +24,7 @@ function generateBooks () {
     wikipediaURL: 'https://en.wikipedia.org/wiki/Emma_(novel)'
   }));
 
-  books.push(Book.build({ // id = 2
+  books.push(Book.build({
     title: 'Persuasion',
     year: 1818,
     text: naturalGutenberg['austen-persuasion'],
@@ -34,7 +34,7 @@ function generateBooks () {
     wikipediaURL: 'https://en.wikipedia.org/wiki/Persuasion_(novel)'
   }));
 
-  books.push(Book.build({ // id = 3
+  books.push(Book.build({
     title: 'Sense and Sensibility',
     year: 1811,
     text: naturalGutenberg['austen-sense'],
@@ -44,7 +44,7 @@ function generateBooks () {
     wikipediaURL: 'https://en.wikipedia.org/wiki/Sense_and_Sensibility'
   }));
 
-  books.push(Book.build({ // id = 4
+  books.push(Book.build({
     title: 'The Ball and The Cross',
     year: 1909,
     text: naturalGutenberg['chesterton-ball'],
@@ -54,7 +54,7 @@ function generateBooks () {
     wikipediaURL: 'https://en.wikipedia.org/wiki/The_Ball_and_the_Cross'
   }));
 
-  books.push(Book.build({ // id = 5
+  books.push(Book.build({
     title: 'The Wisdom of Father Brown',
     year: 1914,
     text: naturalGutenberg['chesterton-brown'],
@@ -64,7 +64,7 @@ function generateBooks () {
     wikipediaURL: 'https://en.wikipedia.org/wiki/Father_Brown'
   }));
 
-  books.push(Book.build({ // id = 6
+  books.push(Book.build({
     title: 'The Man Who Was Thursday: A Nightmare',
     year: 1908,
     text: naturalGutenberg['chesterton-thursday'],
@@ -74,7 +74,7 @@ function generateBooks () {
     wikipediaURL: 'https://en.wikipedia.org/wiki/The_Man_Who_Was_Thursday'
   }));
 
-  books.push(Book.build({ // id = 7
+  books.push(Book.build({
     title: 'The Parent’s Assistant',
     year: 1908,
     text: naturalGutenberg['chesterton-thursday'],
@@ -84,7 +84,7 @@ function generateBooks () {
     wikipediaURL: 'https://en.wikipedia.org/wiki/The_Parent%27s_Assistant'
   }));
 
-  books.push(Book.build({ // id = 8
+  books.push(Book.build({
     title: 'Herland',
     year: 1915,
     text: convertToString('gilman-herland.txt'),
@@ -94,7 +94,7 @@ function generateBooks () {
     wikipediaURL: 'https://en.wikipedia.org/wiki/Herland_(novel)'
   }));
 
-  books.push(Book.build({ // id = 9
+  books.push(Book.build({
     title: 'Scaramouche: A Romance of the French Revolution',
     year: 1921,
     text: convertToString('sabatini-scaramouche.txt'),
@@ -104,7 +104,7 @@ function generateBooks () {
     wikipediaURL: 'https://en.wikipedia.org/wiki/Scaramouche_(novel)'
   }));
 
-  books.push(Book.build({ // id = 10
+  books.push(Book.build({
     title: 'The Tragedy of Julius Caesar',
     year: 1599,
     text: naturalGutenberg['shakespeare-caesar'],
@@ -114,7 +114,7 @@ function generateBooks () {
     wikipediaURL: 'https://en.wikipedia.org/wiki/Julius_Caesar_(play)'
   }));
 
-  books.push(Book.build({ // id = 11
+  books.push(Book.build({
     title: 'The Tragedy of Hamlet, Prince of Denmark',
     year: 1599,
     text: naturalGutenberg['shakespeare-hamlet'],
@@ -124,7 +124,7 @@ function generateBooks () {
     wikipediaURL: 'https://en.wikipedia.org/wiki/Hamlet'
   }));
 
-  books.push(Book.build({ // id = 12
+  books.push(Book.build({
     title: 'The Tragedy of Macbeth',
     year: 1603,
     text: naturalGutenberg['shakespeare-macbeth'],
