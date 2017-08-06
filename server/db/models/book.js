@@ -19,6 +19,12 @@ const Book = db.define('book', {
         min: 0
       }
     },
+    uniqueCount: {
+      type: INTEGER,
+      validate: {
+        min: 0
+      }
+    },
     coverURL: {
       type: STRING,
       defaultValue: '/img/cover.png'
@@ -40,6 +46,10 @@ const Book = db.define('book', {
     sentenceArray: {
       type: ARRAY(TEXT),
       defaultValue: []
+    },
+    wordMap: {
+      type: TEXT,
+      defaultValue: ''
     }
   }
 )
