@@ -1,9 +1,9 @@
-const {INTEGER, STRING} = require('sequelize');
+const {INTEGER, STRING, TEXT} = require('sequelize');
 const db = require('../db');
 
 const Sentence = db.define('sentence', {
     sentence: {
-      type: STRING,
+      type: TEXT,
       allowNull: false
     },
     index: {

@@ -1,4 +1,4 @@
-const {BOOLEAN, STRING, INTEGER, TEXT} = require('sequelize');
+const {ARRAY, BOOLEAN, STRING, INTEGER, TEXT} = require('sequelize');
 const db = require('../db');
 
 const Book = db.define('book', {
@@ -36,6 +36,10 @@ const Book = db.define('book', {
     wordsTokenized: {
       type: BOOLEAN,
       defaultValue: false
+    },
+    sentenceArray: {
+      type: ARRAY(TEXT),
+      defaultValue: []
     }
   }
 )

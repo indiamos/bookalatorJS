@@ -2,6 +2,8 @@ const router = require('express').Router()
 const { Book, Sentence, Word } = require('../db/models')
 module.exports =  router;
 
+const Promise = require('bluebird');
+
 const natural = require('natural');
 const wordTokenizer = new natural.WordTokenizer();
 const sentenceTokenizer = new natural.SentenceTokenizer();
@@ -88,34 +90,41 @@ router.post('/:bookId/sentences', (req, res, next) => {
     if(foundBook.sentencesTokenized) {
       res.sendStatus(418)
     }
-    return sentenceTokenizer.tokenize(foundBook.text)
-  })
+    let sentenceArray = sentenceTokenizer.tokenize(foundBook.text);
+    foundBook.update({
+      sentenceArray,
+      sentencesTokenized: true
+    })
+    return sentenceArray;
   // 3. build an array of objects
   // This whole step is based on the process in the seed file, which in turn is based on the boilermaker repo. Which is why it’s so fucking convoluted.
-  .then(sentenceArray => {
-    function buildSentences() {
-      let sentenceBuilders = [];
-      for(let i = 0; i < sentenceArray.length; i++) {
-        sentenceBuilders.push(Sentence.build({
-          sentence: sentenceArray[i],
-          index: i,
-          bookId: 'female',
-        }));
-      }
-      return sentenceBuilders;
-    }
+  // .then(sentenceArray => {
 
-    function createSentences() {
-      return Promise.map(buildSentences(), function (sentence) {
-        return sentence.save();
-      });
-    }
+    // Scrapped buildSentences() because handling so many rows crashed Node.
+    // function buildSentences() {
+    //   let sentenceBuilders = [];
+    //   for(let i = 0; i < sentenceArray.length; i++) {
+    //     sentenceBuilders.push(Sentence.build({
+    //       sentence: sentenceArray[i],
+    //       index: i,
+    //       bookId: req.params.bookId,
+    //     }));
+    //   }
+    //   return sentenceBuilders;
+    // }
 
-    function postSentences() {
-      return Promise.all([createSentences()]); // this doesn't need to be a Promise.all
-    }
-  // 4. post the built objects
-    return postSentences();
+  //   function createSentences() {
+  //     // TypeError: Promise.map is not a function
+  //     return Promise.map(buildSentences(), function (sentence) {
+  //       return sentence.save();
+  //     });
+  //   }
+
+  //   function postSentences() {
+  //     return Promise.all([createSentences()]); // this doesn't need to be a Promise.all
+  //   }
+  // // 4. post the built objects
+  //   return postSentences();
   })
   .then(postedSentences => res.status(201).json(postedSentences))
   .catch(next);
@@ -124,11 +133,13 @@ router.post('/:bookId/sentences', (req, res, next) => {
 // GET /api/books/:bookId/sentences/:word
 // Returns all of a book’s sentences that contain a given word
 router.get('/:bookId/sentences/:word', (req, res, next) => {
-  Sentence.findAll({
-    where: {
-      bookId: req.params.bookId
-    }
-  })
+  // Sentence.findAll({
+  //   where: {
+  //     bookId: req.params.bookId
+  //   }
+  // })
+  Book.findById(req.params.bookId).sentenceArray
+
   .then(bookSentences => bookSentences.filter(sentence => {
     return sentence.indexOf(req.params.word) > -1;
   }))
@@ -152,4 +163,3 @@ router.get('/:bookId/words', (req, res, next) => {
   .then(allWords => res.json(allWords))
   .catch(next);
 });
-
