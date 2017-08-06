@@ -146,7 +146,9 @@ router.get('/:bookId/sentences/:word', (req, res, next) => {
 function mapWords(arr) {
   let map = {};
   for(let word of arr) {
-    map[word] = map[word] + 1 || 1;
+    if(!Number(word)) {
+      map[word] = map[word] + 1 || 1;
+    }
   }
   return JSON.stringify(map);
 }
