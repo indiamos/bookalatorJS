@@ -151,7 +151,7 @@
 * Table headings should be clickable to allow sorting.
 * It would be nice to have a filter box at the top of each table column.
 
-![Words table view](Words-all-compact.png)
+![Words table view](Words-all.png)
 
 ## Navigational components
 
