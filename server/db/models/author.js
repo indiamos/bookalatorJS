@@ -26,6 +26,9 @@ const Author = db.define('author', {
       type: STRING,
       defaultValue: '/img/person.png'
     },
+    pgURL: {
+      type: STRING
+    },
     wikipediaURL: {
       type: STRING
     }
