@@ -101,46 +101,21 @@ router.post('/:bookId/sentences', (req, res, next) => {
   Book.findById(req.params.bookId)
   // 2. tokenize the text
   .then(foundBook => {
+    let sentenceArray, status;
     if(foundBook.sentencesTokenized) {
-      res.status(418).json(foundBook.sentenceArray); // I'm a teapot
+      sentenceArray = foundBook.sentenceArray;
+      status = 218; // I'm a teapot
+    } else {
+      status = 201;
+      sentenceArray = sentenceTokenizer.tokenize(foundBook.text);
+      foundBook.update({
+        sentenceArray,
+        sentencesTokenized: true
+      })
     }
-    let sentenceArray = sentenceTokenizer.tokenize(foundBook.text);
-    foundBook.update({
-      sentenceArray,
-      sentencesTokenized: true
-    })
-    return sentenceArray;
-  // 3. build an array of objects
-  // This whole step is based on the process in the seed file, which in turn is based on the boilermaker repo. Which is why it’s so fucking convoluted.
-  // .then(sentenceArray => {
-
-    // Scrapped buildSentences() because handling so many rows crashed Node.
-    // function buildSentences() {
-    //   let sentenceBuilders = [];
-    //   for(let i = 0; i < sentenceArray.length; i++) {
-    //     sentenceBuilders.push(Sentence.build({
-    //       sentence: sentenceArray[i],
-    //       index: i,
-    //       bookId: req.params.bookId,
-    //     }));
-    //   }
-    //   return sentenceBuilders;
-    // }
-
-  //   function createSentences() {
-  //     // TypeError: Promise.map is not a function
-  //     return Promise.map(buildSentences(), function (sentence) {
-  //       return sentence.save();
-  //     });
-  //   }
-
-  //   function postSentences() {
-  //     return Promise.all([createSentences()]); // this doesn't need to be a Promise.all
-  //   }
-  // // 4. post the built objects
-  //   return postSentences();
+    return {sentenceArray, status};
   })
-  .then(postedSentences => res.status(201).json(postedSentences))
+  .then(({sentenceArray, status}) => res.status(status).json(sentenceArray))
   .catch(next);
 });
 
@@ -212,21 +187,25 @@ router.post('/:bookId/words', (req, res, next) => {
   // 1. Get the book object
   Book.findById(req.params.bookId)
   .then(foundBook => {
+    let wordMap, status;
   // 2. Check whether it's already been tokenized
     if(foundBook.wordsTokenized) {
-      res.status(418).json(foundBook.wordMap); // I'm a teapot
-    }
+      wordMap = foundBook.wordMap;
+      status = 218;
+    } else {
+      status = 201;
   // 3. Tokenize the text
       let wordArray = wordTokenizer.tokenize(foundBook.text);
-      let wordMap = mapWords(wordArray);
+      wordMap = mapWords(wordArray);
       foundBook.update({
         wordMap,
         wordsTokenized: true,
         wordCount: wordArray.length,
         uniqueCount: Object.keys(wordMap).length
       })
-    return wordMap;
+    }
+    return {wordMap, status};
   })
-  .then(postedWords => res.status(201).send(postedWords))
+  .then(({wordMap, status}) => res.status(status).send(wordMap))
   .catch(next);
 });
