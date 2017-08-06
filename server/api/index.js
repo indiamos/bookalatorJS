@@ -4,6 +4,7 @@ module.exports = router;
 router.use('/authors', require('./authors'));
 router.use('/books', require('./books'));
 router.use('/genres', require('./genres'));
+router.use('/sentences', require('./sentences'));
 router.use('/users', require('./users'));
 router.use('/words', require('./words'));
 

@@ -6,9 +6,8 @@ const natural = require('natural');
 const wordTokenizer = new natural.WordTokenizer();
 const sentenceTokenizer = new natural.SentenceTokenizer();
 
-// GET /api/words/                // returns all words from all books in the collection!
-// GET /api/words/:word           // returns all books containing a given word
-// GET /api/words/:word/sentences // returns all sentences from all books containing a given word
+// GET /api/sentence/            // returns all sentences from all books in the collection!
+// GET /api/sentences/:word       // returns all sentences from all books containing a given word
 
 // GET /api/words/
 // Returns all word objects from all books in the collection!
@@ -45,9 +44,9 @@ router.get('/:word', (req, res, next) => {
   .catch(next);
 });
 
-// GET /api/words/:word/sentences
+// GET /api/words/:word/lines
 // Returns all sentence objects in the collection that contain a given word
-// router.get('/:word/sentences', (req, res, next) => {
+// router.get('/:word/lines', (req, res, next) => {
 //   const pattern = '[\b'+req.params.word+'|\b'+req.params.word+'s]'; // includes plurals, dumbly
 //   Sentence.findAll({
 //     where: {

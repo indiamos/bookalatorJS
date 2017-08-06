@@ -2,6 +2,7 @@ const db = require('../db');
 const Author = db.model('author');
 const Book = db.model('book');
 const Genre = db.model('genre');
+const Sentence = db.model('sentence');
 const User = db.model('user');
 const Word = db.model('word');
 
@@ -9,22 +10,13 @@ const createAuthors = require('./createAuthors');
 const createBooks = require('./createBooks');
 const createGenres = require('./createGenres');
 const createUsers = require('./createUsers');
-// const createWords = require('./createWords');
-// const createAuthorsBooks = require('./createAuthorsBooks');
-// const createBooksGenres = require('./createBooksGenres');
+
+const linkAuthorsBooksGenres = require('./linkAuthorsBooksGenres');
 
 const Promise = require('bluebird');
 // const chance = require('chance')(123);
 
-function doTimes (n, fn) {
-  var results = [];
-  while (n--) {
-    results.push(fn());
-  }
-  return results;
-}
-
-//SEEDING
+// SEEDING
 
 function seed() {
   let arr = [
@@ -36,14 +28,12 @@ function seed() {
   return Promise.all(arr);
 }
 
-// function seedConnections() {
-//   let arr = [
-//     createAuthorsBooks(),
-//     createBooksGenres(),
-//     createWords()
-//   ];
-//   return Promise.all(arr);
-// }
+function seedLinks() {
+  let arr = [
+    linkAuthorsBooksGenres()
+  ];
+  return Promise.all(arr);
+}
 
 console.log('Syncing database');
 
@@ -52,10 +42,11 @@ db.sync({force: true})
   console.log('Seeding database');
   return seed();
 })
-// .then(() => {
-//   console.log('Connecting newly seeded data');
-//   return seedConnections();
-// })
+.then(() => {
+  console.log('Link newly seeded data');
+  return seedLinks();
+  // return linkAuthorsBooksGenres();
+})
 .then(function () {
   console.log('Seeding successful');
 }, function (err) {

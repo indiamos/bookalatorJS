@@ -1,4 +1,4 @@
-const {STRING, INTEGER, TEXT} = require('sequelize');
+const {BOOLEAN, STRING, INTEGER, TEXT} = require('sequelize');
 const db = require('../db');
 
 const Book = db.define('book', {
@@ -28,6 +28,14 @@ const Book = db.define('book', {
     },
     wikipediaURL: {
       type: STRING
+    },
+    sentencesTokenized: {
+      type: BOOLEAN,
+      defaultValue: false
+    },
+    wordsTokenized: {
+      type: BOOLEAN,
+      defaultValue: false
     }
   }
 )
