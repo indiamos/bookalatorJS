@@ -12,6 +12,7 @@ function generateAuthors () {
     birthYear: 1775,
     deathYear: 1817,
     imageURL: 'https://upload.wikimedia.org/wikipedia/commons/c/cc/CassandraAusten-JaneAusten%28c.1810%29_hires.jpg',
+    pgURL: 'https://www.gutenberg.org/ebooks/author/68',
     wikipediaURL: 'https://en.wikipedia.org/wiki/Jane_Austen',
   }));
   authors.push(Author.build({ // id = 2
@@ -21,6 +22,7 @@ function generateAuthors () {
     birthYear: 1874,
     deathYear: 1936,
     imageURL: 'https://upload.wikimedia.org/wikipedia/commons/7/75/Gilbert_Chesterton.jpg',
+    pgURL: 'https://www.gutenberg.org/ebooks/author/80',
     wikipediaURL: 'https://en.wikipedia.org/wiki/G._K._Chesterton',
   }));
   authors.push(Author.build({ // id = 3
@@ -30,6 +32,7 @@ function generateAuthors () {
     birthYear: 1768,
     deathYear: 1849,
     imageURL: 'https://upload.wikimedia.org/wikipedia/commons/9/97/Maria_Edgeworth_by_John_Downman_1807.jpg',
+    pgURL: 'https://www.gutenberg.org/ebooks/author/630',
     wikipediaURL: 'https://en.wikipedia.org/wiki/Maria_Edgeworth',
   }));
   authors.push(Author.build({ // id = 4
@@ -39,6 +42,7 @@ function generateAuthors () {
     birthYear: 1860,
     deathYear: 1935,
     imageURL: 'https://upload.wikimedia.org/wikipedia/commons/0/00/Charlotte_Perkins_Gilman_c._1900.jpg',
+    pgURL: 'https://www.gutenberg.org/ebooks/author/27',
     wikipediaURL: 'https://en.wikipedia.org/wiki/Charlotte_Perkins_Gilman',
   }));
   authors.push(Author.build({ // id = 5
@@ -48,6 +52,7 @@ function generateAuthors () {
     birthYear: 1875,
     deathYear: 1950,
     imageURL: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Portrait_of_Rafael_Sabatini.jpg',
+    pgURL: 'https://www.gutenberg.org/ebooks/author/640',
     wikipediaURL: 'https://en.wikipedia.org/wiki/Rafael_Sabatini',
   }));
   authors.push(Author.build({ // id = 6
@@ -57,6 +62,7 @@ function generateAuthors () {
     birthYear: 1564,
     deathYear: 1616,
     imageURL: 'https://upload.wikimedia.org/wikipedia/commons/a/a2/Shakespeare.jpg',
+    pgURL: 'https://www.gutenberg.org/ebooks/author/65',
     wikipediaURL: 'https://en.wikipedia.org/wiki/William_Shakespeare',
   }));
   return authors;
