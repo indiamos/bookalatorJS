@@ -1,0 +1,60 @@
+@import './constants';
+@import url('https://fonts.googleapis.com/css?family=Faster+One');
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+
+  a {
+    color: $muted-blue;
+    text-decoration: none;
+  }
+
+  label {
+    display: block;
+  }
+
+  form div {
+    display: inline-block;
+    margin: 1em;
+  }
+}
+
+// ----------------------------- Navbar component ------------------------------
+
+.navbar {
+  margin: 0 -15px;
+  padding: 0 15px;
+
+  .navbar-brand {
+    color: $book-orange;
+    font-family: 'Faster One', cursive;
+    font-size: 1.75em;
+
+    span {
+      margin-right: 25px;
+    }
+
+    .logoimg {
+      max-width: 1em;
+    }
+  }
+}
+
+// ---------------------------- Author components ------------------------------
+
+// ----------------------------- Book components -------------------------------
+
+// .book-metadata {}
+// .book-selector {}
+
+.book-thumbnail {
+  max-width: 100%;
+}
+
+// .book-word-table {}
+// .left-book-card {}
+// .right-book-card {}
+// .single-book {}
+
+// ----------------------------- Word components -------------------------------
+
