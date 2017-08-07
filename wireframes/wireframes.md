@@ -157,14 +157,14 @@
 
 ### Navbar
 
-### Components
+#### Components
 
 * Left side: Books, Words, Authors
 * Right side: hamburger menu
 
 ### Hamburger menu
 
-### Components
+#### Notes
 
 * Overlays whatever is currently on the screen.
 * Clicking the menu button again closes it.
