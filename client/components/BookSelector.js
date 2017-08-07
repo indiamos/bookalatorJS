@@ -3,25 +3,31 @@ import PropTypes from 'prop-types';
 
 // The book picker should really include the author name in each option,
 // but I don't want to figure out how to pull it in right now.
-const BookSelector = ({ books, onChange, selectedBook, selectorID }) => (
-  <form id={selectorID} className="book-selector form-horizontal" onChange={onChange()}>
-    <div className="form-group">
-      <label className="col-sm-12 col-md-4 control-label" htmlFor="book-picker-1">Select
-      book 1</label>
-      <div className="col-sm-12 col-md-8">
-        <select className="form-control">
-          {
-            books.map(book => (
-              selectedBook
-                ? <option key={book.id} value={book.id} selected>{book.title}</option>
-                : <option key={book.id} value={book.id}>{book.title}</option>
-            ))
-          }
-        </select>
+
+// Warning: Failed form propType: You provided a `value` prop to a form field
+// without an `onChange` handler. This will render a read-only field. If the field
+// should be mutable use `defaultValue`. Otherwise, set either `onChange` or
+// `readOnly`. Check the render method of `BookSelector`.
+const BookSelector = ({ books, onChange, selectedBook, selectorID }) => {
+  const bookNo = selectorID === 'leftSelector' ? 1 : 2;
+  return (
+    <form id={selectorID} className="book-selector" onChange={onChange()}>
+      <div className="form-group col-lg-12">
+        <label className="col-lg-12 control-label" htmlFor={`book-picker-${bookNo}`}>Select
+        book {bookNo}</label>
+        <div className="book-selector-wrapper col-lg-12">
+          <select className="form-control" value={selectedBook}>
+            {
+              books.map(book => (
+                <option key={book.id} value={book.id}>{book.title}</option>
+              ))
+            }
+          </select>
+        </div>
       </div>
-    </div>
-  </form>
-);
+    </form>
+  );
+}
 
 // BookSelector.propTypes = {
 //   books: PropTypes.arrayOf(

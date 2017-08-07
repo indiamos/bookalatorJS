@@ -12,12 +12,14 @@ const BookWordTable = ({ bookId, wordMap }) => (
     </thead>
     <tbody>
       {
-        Object.entries(wordMap).map(word => (
-          <tr key={word[1]}>
-            <td><Link to={`/books/${bookId}/sentences/${word[1]}`}>{word[1]}</Link></td>
-            <td><Link to={`/words/${word[0]}`}>{word[0]}</Link></td>
-          </tr>
-        ))
+        Object.entries(wordMap).map((word, index) => {
+          return (
+            <tr key={index}>
+              <td><Link to={`/api/books/${bookId}/sentences/${word[0]}`}>{word[1]}</Link></td>
+              <td><Link to={`/api/words/${word[0]}`}>{word[0]}</Link></td>
+            </tr>
+          );
+        })
       }
     </tbody>
   </table>

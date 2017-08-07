@@ -7,8 +7,8 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
 
   a {
+    color: $muted-blue;
     text-decoration: none;
-    color: #369;
   }
 
   label {
@@ -16,25 +16,95 @@ body {
   }
 
   form div {
-    margin: 1em;
     display: inline-block;
+    margin: 1em;
   }
 }
 
-nav.navbar {
+// ----------------------------- Navbar component ------------------------------
+
+.navbar {
   margin: 0 -15px;
   padding: 0 15px;
 
   .navbar-brand {
+    color: $book-orange;
     font-family: 'Faster One', cursive;
-    color: #f38f19;
     font-size: 1.75em;
 
     span {
       margin-right: 25px;
-      img {
-        max-width: 1em;
-      }
+    }
+
+    .logoimg {
+      max-width: 1em;
     }
   }
 }
+
+// ---------------------------- Author components ------------------------------
+
+// ----------------------------- Book components -------------------------------
+
+.book-metadata {
+  > ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  h2 {
+    font-style: italic;
+    margin-top: 0;
+  }
+}
+
+.book-selector {
+  div {
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  label {
+    padding-left: 0;
+  }
+
+  // .book-selector-wrapper {
+  //   margin-left: 0;
+  // }
+}
+
+.book-thumbnail {
+  img {
+    max-width: 100%;
+  }
+}
+
+.book-word-table {
+  border: 1px dotted $book-orange;
+  margin-left: 15px;
+  margin-top: 1em;
+  padding: 5px;
+
+  td,
+  th {
+    border: 1px dotted $book-orange;
+    padding: 5px;
+  }
+}
+
+// .left-book-card {}
+
+.right-book-card {
+  p {
+    color: $book-orange;
+    font-family: cursive, sans-serif;
+    // font-size: 150%;
+    font-style: italic;
+    margin-top: 0;
+    // text-align: center;
+  }
+}
+
+// .single-book {}
+
+// ----------------------------- Word components -------------------------------
