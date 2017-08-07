@@ -3,10 +3,9 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
 
-/**
- * COMPONENT
- */
-const AuthForm = (props) => {
+/* -------------------- COMPONENT ------------------- */
+
+ const AuthForm = (props) => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
@@ -31,7 +30,7 @@ const AuthForm = (props) => {
 }
 
 /**
- * CONTAINER
+ * -------------------- CONTAINER --------------------
  *   Note that we have two different sets of 'mapStateToProps' functions -
  *   one for Login, and one for Signup. However, they share the same 'mapDispatchToProps'
  *   function, and share the same Component. This is a good example of how we
@@ -68,9 +67,7 @@ const mapDispatch = (dispatch) => {
 export const Login = connect(mapLogin, mapDispatch)(AuthForm)
 export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
 
-/**
- * PROP TYPES
- */
+/* -------------------- PROP TYPES -------------------- */
 AuthForm.propTypes = {
   name: PropTypes.string.isRequired,
   displayName: PropTypes.string.isRequired,

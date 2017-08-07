@@ -1,21 +1,37 @@
+@import url('https://fonts.googleapis.com/css?family=Faster+One');
+
 body {
-  font-family: sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
 
   a {
     text-decoration: none;
+    color: #369;
   }
 
   label {
     display: block;
   }
 
-  nav a {
-    display: inline-block;
-    margin: 1em;
-  }
-
   form div {
     margin: 1em;
     display: inline-block;
+  }
+}
+
+nav.navbar {
+  margin: 0 -15px;
+  padding: 0 15px;
+
+  .navbar-brand {
+    font-family: 'Faster One', cursive;
+    color: #f38f19;
+    font-size: 1.75em;
+
+    span {
+      margin-right: 25px;
+      img {
+        max-width: 1em;
+      }
+    }
   }
 }
