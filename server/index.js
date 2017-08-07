@@ -29,6 +29,10 @@ const createApp = () => {
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({ extended: true }))
 
+  // statically serve front-end dependencies
+  app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist'));
+  app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist'));
+
   // session middleware with passport
   app.use(session({
     secret: process.env.SESSION_SECRET || 'my best friend is Cody',
