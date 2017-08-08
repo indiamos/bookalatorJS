@@ -1,4 +1,14 @@
-// fake store
+export const dummyAuthor = {
+  id: 1,
+  firstName: 'Jane',
+  lastName: 'Austen',
+  gender: 'female',
+  birthYear: 1775,
+  deathYear: 1817,
+  imageURL: 'https://upload.wikimedia.org/wikipedia/commons/c/cc/CassandraAusten-JaneAusten%28c.1810%29_hires.jpg',
+  pgURL: 'https://www.gutenberg.org/ebooks/author/68',
+  wikipediaURL: 'https://en.wikipedia.org/wiki/Jane_Austen',
+};
 
 export const persuasionWordMap = {
   "Sir":144,
@@ -9697,3 +9707,14 @@ export const persuasionSentenceArray = [
 "She gloried in being a sailor's wife, but she must pay the tax of quick alarm for belonging to that profession which is, if possible, more distinguished in its domestic virtues than in its national importance."
 ];
 
+// export const dummyComparisonBook = {
+//   id: 1,
+//   author: {
+//     lastName: "Austen",
+//     firstName: "Jane"
+//   }
+// };
+
+export const dummyComparisonBook = {id: 0};
+
+export const dummyOnChange = () => console.log('onChange was invoked');

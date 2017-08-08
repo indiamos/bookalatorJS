@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 // The book picker should really include the author name in each option,
 // but I don't want to figure out how to pull it in right now.
@@ -12,14 +12,15 @@ const BookSelector = ({ books, onChange, selectedBook, selectorID }) => {
   const bookNo = selectorID === 'leftSelector' ? 1 : 2;
   return (
     <form id={selectorID} className="book-selector" onChange={onChange()}>
-      <div className="form-group col-lg-12">
-        <label className="col-lg-12 control-label" htmlFor={`book-picker-${bookNo}`}>Select
+      <div className="form-group col-xs-12">
+        <label className="col-xs-12 control-label" htmlFor={`book-picker-${bookNo}`}>Select
         book {bookNo}</label>
-        <div className="book-selector-wrapper col-lg-12">
-          <select className="form-control" value={selectedBook}>
+        <div className="book-selector-wrapper col-xs-12">
+          <select className="form-control" value="{selectedBook}">
+            <option value="0">Choose another book to compare word lists</option>
             {
               books.map(book => (
-                <option key={book.id} value={book.id}>{book.title}</option>
+                <option key={book.id} value={book.id}>Austen, Jane: {book.title}</option>
               ))
             }
           </select>

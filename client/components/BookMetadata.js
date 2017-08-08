@@ -7,7 +7,7 @@ const BookMetadata = ({ singleBook }) => {
   // console.log(author);
 
   return (
-    <div className="book-metadata col-lg-6 col-sm-12">
+    <div className="book-metadata col-md-6 col-sm-8 col-xs-12">
       <ul>
         <li><h2>{singleBook.title}</h2></li>
         <li>by <Link to={`/authors/${author.id}`}>{author.firstName} {author.lastName} ({author.birthYear}–{author.deathYear})</Link></li>

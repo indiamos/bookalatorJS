@@ -1,4 +1,5 @@
 $book-orange: #f38f19;
+$light-orange: #fbdec4;
 $muted-blue: #369;
 
 @import url('https://fonts.googleapis.com/css?family=Faster+One');
@@ -50,6 +51,10 @@ body {
   > ul {
     list-style-type: none;
     padding-left: 0;
+
+    ul {
+      padding-left: 1.5em;
+    }
   }
 
   h2 {
@@ -85,10 +90,44 @@ body {
   margin-top: 1em;
   padding: 5px;
 
-  td,
-  th {
+  tr:nth-child(even) {
+    background: $light-orange;
+  }
+
+  td {
     border: 1px dotted $book-orange;
     padding: 5px;
+  }
+
+  th {
+    // align-items: center;
+    background-color: $book-orange;
+    border: 1px dotted $book-orange;
+    color: #fff;
+    // display: flex;
+    // justify-content: space-between;
+    padding: 5px;
+  }
+
+  .word-map-search {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+
+    input {
+      display: inline-block;
+      width: 90%;
+    }
+
+    search-icon {
+      margin-left: 5px;
+      padding-left: 5px;
+    }
+  }
+
+  .book-word-table-count {
+    text-align: right;
   }
 }
 
