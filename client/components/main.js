@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {withRouter, Link} from 'react-router-dom';
-import {logout} from '../store';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { logout } from '../store';
 import Navbar from './Navbar';
 
 /* ----------------------- COMPONENT -----------------------
@@ -12,29 +12,29 @@ import Navbar from './Navbar';
  *  rendered out by the component's `children`.
  */
 const Main = (props) => {
-  const {children, handleClick, isLoggedIn} = props;
+  const { children, handleClick, isLoggedIn } = props;
 
   return (
     <div id="main">
-        <div>
-          <Navbar isLoggedIn={isLoggedIn} />
-          {children}
-        </div>
+      <div>
+        <Navbar isLoggedIn={isLoggedIn} />
+        {children}
+      </div>
     </div>
-  )
+  );
 };
 
 /* ----------------------- CONTAINER ----------------------- */
 
 const mapState = (state) => {
   return {
-    isLoggedIn: !!state.user.id
-  }
-}
+    isLoggedIn: !!state.user.id,
+  };
+};
 
 const mapDispatch = (dispatch) => {
   return {
-    handleClick () {
+    handleClick() {
       dispatch(logout());
     }
   };
@@ -46,8 +46,15 @@ export default withRouter(connect(mapState, mapDispatch)(Main));
 
 /* ----------------------- PROP TYPES ----------------------- */
 
-Main.propTypes = {
-  children: PropTypes.object,
-  handleClick: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
-}
+// Main.propTypes = {
+//   children: PropTypes.shape,
+//   handleClick: PropTypes.func.isRequired,
+//   isLoggedIn: PropTypes.bool.isRequired,
+// };
+
+// Warning: Main: type specification of prop `children` is invalid; the type checker functio// n must return
+// `null` or an `Error` but returned a function. You may have forgotten to pass an argument to the type
+// checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument).
+// Main.defaultProps = {
+//   children: {},
+// };
