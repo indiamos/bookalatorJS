@@ -10,13 +10,23 @@ const Navbar = ({
 }) => (
   <nav className="navbar navbar-default navbar-static-top">
     <div className="navbar-header">
-      <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+      <button
+        type="button"
+        className="navbar-toggle collapsed"
+        data-toggle="collapse"
+        data-target="#navbar"
+        aria-expanded="false"
+        aria-controls="navbar"
+      >
         <span className="sr-only">Toggle navigation</span>
-        <span className="icon-bar"></span>
-        <span className="icon-bar"></span>
-        <span className="icon-bar"></span>
+        <span className="icon-bar" />
+        <span className="icon-bar" />
+        <span className="icon-bar" />
       </button>
-      <Link className="navbar-brand" to="/books"><span><img src="/img/noun_973057_cc_F38F19_reflected.png" alt="book icon" /></span>Bookalator</Link>
+      <Link className="navbar-brand" to="/books"><span><img
+        src="/img/noun_973057_cc_F38F19_reflected.png"
+        alt="book icon"
+      /></span>Bookalator</Link>
     </div>
     <div id="navbar" className="navbar-collapse collapse">
       <ul className="nav navbar-nav">
@@ -27,9 +37,9 @@ const Navbar = ({
       <ul className="nav navbar-nav navbar-right">
         <li><Link to="/about">About</Link></li>
         <li><Link to="/about/colophon">Colophon</Link></li>
-        <li role="separator" className="divider"></li>
+        <li role="separator" className="divider" />
         <li><Link to="https://github.com/indiamos/bookalatorJS/">View on GitHub</Link></li>
-        <li role="separator" className="divider"></li>
+        <li role="separator" className="divider" />
       </ul>
     </div>
   </nav>

@@ -1,10 +1,11 @@
 const router = require('express').Router();
 const { Book, Word } = require('../db/models');
+// const natural = require('natural');
+
 module.exports = router;
 
-const natural = require('natural');
-const wordTokenizer = new natural.WordTokenizer();
-const sentenceTokenizer = new natural.SentenceTokenizer();
+// const wordTokenizer = new natural.WordTokenizer();
+// const sentenceTokenizer = new natural.SentenceTokenizer();
 
 // GET /api/words/                // returns all words from all books in the collection!
 // GET /api/words/:word           // returns all books containing a given word
@@ -14,8 +15,8 @@ const sentenceTokenizer = new natural.SentenceTokenizer();
 // Returns all word objects from all books in the collection!
 router.get('/', (req, res, next) => {
   Word.findAll()
-  .then(words => res.json(words))
-  .catch(next);
+    .then(words => res.json(words))
+    .catch(next);
 });
 
 // GET /api/words/:word
@@ -36,13 +37,13 @@ router.get('/:word', (req, res, next) => {
       {
         model: Word,
         where: {
-          word: req.params.word
-        }
-      }
-    ]
+          word: req.params.word,
+        },
+      },
+    ],
   })
-  .then(books => res.json(books))
-  .catch(next);
+    .then(books => res.json(books))
+    .catch(next);
 });
 
 // GET /api/words/:word/sentences
