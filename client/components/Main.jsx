@@ -43,7 +43,7 @@ export default withRouter(connect(mapState, mapDispatch)(Main));
 /* ----------------------- PROP TYPES ----------------------- */
 
 Main.propTypes = {
-  children: PropTypes.shape(),
+  children: PropTypes.shape().isRequired,
   handleClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
 };

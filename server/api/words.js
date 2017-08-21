@@ -31,6 +31,7 @@ router.get('/', (req, res, next) => {
 //   .catch(next);
 // });
 
+// returns all books containing a given word
 router.get('/:word', (req, res, next) => {
   Book.findAll({
     include: [
