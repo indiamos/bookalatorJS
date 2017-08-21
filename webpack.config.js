@@ -1,5 +1,5 @@
 module.exports = {
-  entry: './client/index.js',
+  entry: './client/index.jsx',
   output: {
     path: __dirname,
     filename: './public/bundle.js',
@@ -13,8 +13,8 @@ module.exports = {
         loader: 'babel-loader',
       },
       {
-        test: /styles\/\.scss$/,
-        use: [
+        test: /\.scss$/,
+        loader: [
           'style-loader',
           'css-loader',
           'sass-loader',
@@ -25,5 +25,8 @@ module.exports = {
         loader: 'file-loader',
       },
     ],
+  },
+  resolve: {
+    extensions: ['.webpack.js', '.web.js', '.js', '.json', '.jsx'],
   },
 };

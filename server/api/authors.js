@@ -46,7 +46,7 @@ router.put('/:authorId', (req, res, next) => {
 router.delete('/:authorId', (req, res, next) => {
   Author.findById(req.params.authorId)
     .then(foundAuthor => foundAuthor.destroy())
-    .then((result) => {
+    .then(() => {
       res.send({ message: 'Deleted successfully' });
     })
     .catch(next);

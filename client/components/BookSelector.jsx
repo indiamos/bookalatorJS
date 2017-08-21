@@ -1,34 +1,41 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 // The book picker should really include the author name in each option,
 // but I don't want to figure out how to pull it in right now.
-const BookSelector = ({ books, onChange, selectedBook, selectorID }) => (
-  <form id={selectorID} className="book-selector form-horizontal" onChange={onChange()}>
-    <div className="form-group">
-      <label className="col-sm-12 col-md-4 control-label" htmlFor="book-picker-1">Select
-      book 1</label>
-      <div className="col-sm-12 col-md-8">
-        <select className="form-control">
-          {
-            books.map(book => (
-              selectedBook
-                ? <option value={book.id} selected>{book.title}</option>
-                : <option value={book.id}>{book.title}</option>
-            ))
-          }
-        </select>
+
+// Warning: Failed form propType: You provided a `value` prop to a form field
+// without an `onChange` handler. This will render a read-only field. If the field
+// should be mutable use `defaultValue`. Otherwise, set either `onChange` or
+// `readOnly`. Check the render method of `BookSelector`.
+const BookSelector = ({ books, handleChange, selectedBook, selectorID }) => {
+  const bookNo = selectorID === 'leftSelector' ? 1 : 2;
+  return (
+    <form id={selectorID} className="book-selector" onChange={handleChange()}>
+      <div className="form-group col-xs-12">
+        <label className="col-xs-12 control-label" htmlFor={`book-picker-${bookNo}`}>Select
+        book {bookNo}</label>
+        <div className="book-selector-wrapper col-xs-12">
+          <select className="form-control" value={selectedBook} onChange={handleChange}>
+            <option value="0">Choose another book to compare word lists</option>
+            {
+              books.map(book => (
+                <option key={book.id} value={book.id}>Austen, Jane: {book.title}</option>
+              ))
+            }
+          </select>
+        </div>
       </div>
-    </div>
-  </form>
-);
+    </form>
+  );
+};
 
 BookSelector.propTypes = {
   books: PropTypes.arrayOf(
-    PropTypes.obj.isRequired,
+    PropTypes.shape().isRequired,
   ).isRequired,
-  onChange: PropTypes.func.isRequired,
-  selectedBook: PropTypes.integer, // not the same as singleBook
+  handleChange: PropTypes.func.isRequired,
+  selectedBook: PropTypes.number, // not the same as singleBook
   selectorID: PropTypes.string.isRequired,
 };
 

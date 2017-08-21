@@ -1,0 +1,149 @@
+$book-orange: #f38f19;
+$light-orange: #fbdec4;
+$muted-blue: #369;
+
+@import url('https://fonts.googleapis.com/css?family=Faster+One');
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+
+  a {
+    color: $muted-blue;
+    text-decoration: none;
+  }
+
+  label {
+    display: block;
+  }
+
+  form div {
+    display: inline-block;
+    margin: 1em;
+  }
+}
+
+// ----------------------------- Navbar component ------------------------------
+
+.navbar {
+  margin: 0 -15px;
+  padding: 0 15px;
+
+  .navbar-brand {
+    color: $book-orange;
+    font-family: 'Faster One', cursive;
+    font-size: 1.75em;
+
+    span {
+      margin-right: 25px;
+    }
+
+    .logoimg {
+      max-width: 1em;
+    }
+  }
+}
+
+// ---------------------------- Author components ------------------------------
+
+// ----------------------------- Book components -------------------------------
+
+.book-metadata {
+  > ul {
+    list-style-type: none;
+    padding-left: 0;
+
+    ul {
+      padding-left: 1.5em;
+    }
+  }
+
+  h2 {
+    font-style: italic;
+    margin-top: 0;
+  }
+}
+
+.book-selector {
+  div {
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  label {
+    padding-left: 0;
+  }
+
+  // .book-selector-wrapper {
+  //   margin-left: 0;
+  // }
+}
+
+.book-thumbnail {
+  img {
+    max-width: 100%;
+  }
+}
+
+.book-word-table {
+  border: 1px dotted $book-orange;
+  margin-left: 15px;
+  margin-top: 1em;
+  padding: 5px;
+
+  tr:nth-child(even) {
+    background: $light-orange;
+  }
+
+  td {
+    border: 1px dotted $book-orange;
+    padding: 5px;
+  }
+
+  th {
+    // align-items: center;
+    background-color: $book-orange;
+    border: 1px dotted $book-orange;
+    color: #fff;
+    // display: flex;
+    // justify-content: space-between;
+    padding: 5px;
+  }
+
+  .word-map-search {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+
+    input {
+      display: inline-block;
+      width: 90%;
+    }
+
+    search-icon {
+      margin-left: 5px;
+      padding-left: 5px;
+    }
+  }
+
+  .book-word-table-count {
+    text-align: right;
+  }
+}
+
+// .left-book-card {}
+
+.right-book-card {
+  p {
+    color: $book-orange;
+    font-family: cursive, sans-serif;
+    // font-size: 150%;
+    font-style: italic;
+    margin-top: 0;
+    // text-align: center;
+  }
+}
+
+// .single-book {}
+
+// ----------------------------- Word components -------------------------------

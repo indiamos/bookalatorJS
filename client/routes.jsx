@@ -8,6 +8,7 @@ import { Main, Login, Signup, SingleBook, UserHome } from './components';
 import { me } from './store';
 
 /* ------------------------------- COMPONENT ------------------------------- */
+
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
@@ -32,7 +33,7 @@ class Routes extends Component {
                   <Route path="/home" component={UserHome} />
                 </Switch>
             }
-            {/* Displays our Login component as a fallback */}
+            {/* Displays our SingleBook component as a fallback */}
             <SingleBook />
           </Switch>
         </Main>
@@ -42,27 +43,24 @@ class Routes extends Component {
 }
 
 /* ------------------------------- CONTAINER ------------------------------- */
-const mapState = (state) => {
-  return {
-    // Being 'logged in' for our purposes will be defined has having a state.user
-    // that has a truthy id. Otherwise, state.user will be an empty object, and
-    // state.user.id will be falsey
-    isLoggedIn: !!state.user.id,
-  };
-};
 
+const mapState = state => ({
+  // Being 'logged in' for our purposes will be defined has having a state.user
+  // that has a truthy id. Otherwise, state.user will be an empty object, and
+  // state.user.id will be falsey
+  isLoggedIn: !!state.user.id,
+});
 
-const mapDispatch = (dispatch) => {
-  return {
-    loadInitialData() {
-      dispatch(me());
-    },
-  };
-};
+const mapDispatch = dispatch => ({
+  loadInitialData() {
+    dispatch(me());
+  },
+});
 
 export default connect(mapState, mapDispatch)(Routes);
 
 /* ------------------------------- PROP TYPES ------------------------------- */
+
 Routes.propTypes = {
   loadInitialData: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,

@@ -46,7 +46,7 @@ router.put('/:genreId', (req, res, next) => {
 router.delete('/:genreId', (req, res, next) => {
   Genre.findById(req.params.genreId)
     .then(foundGenre => foundGenre.destroy())
-    .then((result) => {
+    .then(() => {
       res.send({ message: 'Deleted successfully' });
     })
     .catch(next);

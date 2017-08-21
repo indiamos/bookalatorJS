@@ -2,14 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 
-const Navbar = (
-  // {
-  //   isLoggedIn
-  //   value,
-  //   onChange,
-  //   options
-  // }
-) => (
+const Navbar = ({
+  // isLoggedIn
+  // value,
+  // handleChange,
+  // options
+}) => (
   <nav className="navbar navbar-default navbar-static-top">
     <div className="navbar-header">
       <button
@@ -25,16 +23,10 @@ const Navbar = (
         <span className="icon-bar" />
         <span className="icon-bar" />
       </button>
-      <Link className="navbar-brand" to="/books">
-        <span>
-          <img
-            className="logoimg"
-            src="/img/noun_973057_cc_F38F19_reflected.png"
-            alt="book icon"
-          />
-        </span>
-        Bookalator
-      </Link>
+      <Link className="navbar-brand" to="/books"><span><img
+        src="/img/noun_973057_cc_F38F19_reflected.png"
+        alt="book icon"
+      /></span>Bookalator</Link>
     </div>
     <div id="navbar" className="navbar-collapse collapse">
       <ul className="nav navbar-nav">
@@ -53,12 +45,12 @@ const Navbar = (
   </nav>
 );
 
-// NavBar.propTypes = {
+// Navbar.propTypes = {
 //   options: PropTypes.arrayOf(
-//     PropTypes.string.isRequired
+//     PropTypes.string.isRequired,
 //   ).isRequired,
-//   onChange: PropTypes.func.isRequired,
-//   value: PropTypes.string.isRequired
-// }
+//   handleChange: PropTypes.func.isRequired,
+//   value: PropTypes.string.isRequired,
+// };
 
 export default Navbar;

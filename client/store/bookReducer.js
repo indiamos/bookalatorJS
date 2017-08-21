@@ -44,15 +44,13 @@ const getSingleBook = singleBook => ({ type: GET_SINGLE_BOOK, singleBook });
 
 /* ------------   THUNK CREATORS     ------------------ */
 
-export const fetchBookList = () => dispatch =>
-  axios.get('/api/books')
-    .then(res => dispatch(getBookList(res.data)))
-    .catch(err => console.error('Fetching books unsuccessful', err));
+export const fetchBookList = () => dispatch => axios.get('/api/books')
+  .then(res => dispatch(getBookList(res.data)))
+  .catch(err => console.error('Fetching books unsuccessful', err));
 
-export const fetchSingleBook = bookId => dispatch =>
-  axios.get(`/api/books/${bookId}`)
-    .then(res => dispatch(getSingleBook(res.data)))
-    .catch(err => console.error('Fetching book unsuccessful', err));
+export const fetchSingleBook = bookId => dispatch => axios.get(`/api/books/${bookId}`)
+  .then(res => dispatch(getSingleBook(res.data)))
+  .catch(err => console.error('Fetching book unsuccessful', err));
 
 // Not using these, because there's no friendly admin interface
 // export const createBook = (book) => dispatch => {
