@@ -1,5 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 // The book picker should really include the author name in each option,
 // but I don't want to figure out how to pull it in right now.
