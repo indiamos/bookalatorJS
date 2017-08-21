@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const Navbar = ({
   // isLoggedIn
   // value,
-  // onChange,
+  // handleChange,
   // options
 }) => (
   <nav className="navbar navbar-default navbar-static-top">
@@ -45,12 +45,12 @@ const Navbar = ({
   </nav>
 );
 
-// NavBar.propTypes = {
+// Navbar.propTypes = {
 //   options: PropTypes.arrayOf(
-//     PropTypes.string.isRequired
+//     PropTypes.string.isRequired,
 //   ).isRequired,
-//   onChange: PropTypes.func.isRequired,
-//   value: PropTypes.string.isRequired
-// }
+//   handleChange: PropTypes.func.isRequired,
+//   value: PropTypes.string.isRequired,
+// };
 
 export default Navbar;

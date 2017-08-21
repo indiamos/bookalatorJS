@@ -9717,4 +9717,4 @@ export const persuasionSentenceArray = [
 
 export const dummyComparisonBook = { id: 0 };
 
-export const dummyOnChange = () => console.log('onChange was invoked');
+export const dummyHandleChange = () => console.log('handleChange was invoked');
