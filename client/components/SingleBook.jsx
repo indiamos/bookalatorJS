@@ -1,14 +1,14 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 // import { Link } from 'react-router-dom';
-// import PropTypes from 'prop-types';
 import { BookMetadata, BookSelector, BookThumbnail, BookWordTable } from '../components';
 import {
   dummyAuthor,
   // dummyBook,
   dummyComparisonBook,
-  dummyOnChange,
+  dummyHandleChange,
   persuasionSentenceArray,
-  persuasionWordMap
+  persuasionWordMap,
 } from '../store/fakeStore';
 
 const dummyBook = {
@@ -30,7 +30,7 @@ console.log('dummyBook:', dummyBook);
 
 const SingleBook = ({
   books = [dummyBook],
-  onChange = dummyOnChange,
+  handleChange = dummyHandleChange,
   singleBook = dummyBook,
   comparisonBook = dummyComparisonBook,
 }) => (
@@ -39,7 +39,7 @@ const SingleBook = ({
       <div className="left-book-card col-xs-6 col-sm-6 col-md-6 col-lg-6">
         <BookSelector
           books={books}
-          onChange={onChange}
+          onChange={handleChange}
           selectedBook={singleBook.id}
           selectorID="leftSelector"
         />
@@ -52,7 +52,7 @@ const SingleBook = ({
       <div className="right-book-card col-xs-6 col-sm-6 col-md-6 col-lg-6">
         <BookSelector
           books={books}
-          onChange={onChange}
+          onChange={handleChange}
           selectedBook={comparisonBook.id}
           selectorID="rightSelector"
         />
@@ -63,24 +63,26 @@ const SingleBook = ({
       <BookWordTable
         wordMap={singleBook.wordMap}
         bookId={singleBook.id}
-        onChange={onChange}
+        onChange={handleChange}
       />
     </div>
   </div>
 );
 
-// SingleBook.propTypes = {
-//   books: PropTypes.arrayOf(
-//     PropTypes.shape,
-//   ),
-//   onChange: PropTypes.func,
-//   singleBook: PropTypes.shape,
-// };
+SingleBook.propTypes = {
+  books: PropTypes.arrayOf(
+    PropTypes.shape(),
+  ),
+  handleChange: PropTypes.func,
+  singleBook: PropTypes.shape(),
+  comparisonBook: PropTypes.shape(),
+};
 
-// SingleBook.defaultProps = {
-//   books: [],
-//   onChange: () => console.log('onChange was invoked'),
-//   singleBook: {},
-// };
+SingleBook.defaultProps = {
+  books: [],
+  comparisonBook: {},
+  handleChange: () => console.log('handleChange was invoked'),
+  singleBook: {},
+};
 
 export default SingleBook;

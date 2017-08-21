@@ -1,6 +1,6 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import PropTypes from 'prop-types';
 
 const BookMetadata = ({ singleBook }) => {
   const author = singleBook.author;
@@ -23,10 +23,10 @@ const BookMetadata = ({ singleBook }) => {
       </ul>
     </div>
   );
-}
+};
 
-// BookMetadata.propTypes = {
-//   singleBook: PropTypes.shape.isRequired,
-// };
+BookMetadata.propTypes = {
+  singleBook: PropTypes.shape().isRequired,
+};
 
 export default BookMetadata;
