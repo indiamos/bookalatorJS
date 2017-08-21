@@ -1,19 +1,18 @@
-const {INTEGER, STRING, TEXT} = require('sequelize');
+const { INTEGER, TEXT } = require('sequelize');
 const db = require('../db');
 
 const Sentence = db.define('sentence', {
-    sentence: {
-      type: TEXT,
-      allowNull: false
+  sentence: {
+    type: TEXT,
+    allowNull: false,
+  },
+  index: {
+    type: INTEGER,
+    allowNull: false,
+    validate: {
+      min: 0,
     },
-    index: {
-      type: INTEGER,
-      allowNull: false,
-      validate: {
-        min: 0
-      }
-    }
-  }
-)
+  },
+});
 
 module.exports = Sentence;

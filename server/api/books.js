@@ -1,9 +1,9 @@
 const router = require('express').Router();
-const { Book } = require('../db/models');
+// const Promise = require('bluebird');
+const natural = require('natural');
+const { Book, Sentence, Word } = require('../db/models');
 
 module.exports = router;
-
-const natural = require('natural');
 
 const wordTokenizer = new natural.WordTokenizer();
 const sentenceTokenizer = new natural.SentenceTokenizer();
@@ -16,7 +16,7 @@ const sentenceTokenizer = new natural.SentenceTokenizer();
 // GET    /api/books/:bookId/sentences        // returns all of a book’s sentences
 // POST   /api/books/:bookId/sentences        // stores all of a book’s sentences
 // GET    /api/books/:bookId/sentences/:word  // returns all of a book’s sentences
-//                                            // that contain a given word
+//                                               that contain a given word
 // GET    /api/books/:bookId/words            // returns all words in a book
 // POST   /api/books/:bookId/words            // stores all of a book’s words
 
@@ -57,7 +57,7 @@ router.put('/:bookId', (req, res, next) => {
 router.delete('/:bookId', (req, res, next) => {
   Book.findById(req.params.bookId)
     .then(foundBook => foundBook.destroy())
-    .then((result) => {
+    .then(() => {
       res.send({ message: 'Deleted successfully' });
     })
     .catch(next);
@@ -68,7 +68,7 @@ router.delete('/:bookId', (req, res, next) => {
 // GET    /api/books/:bookId/sentences        // returns all of a book’s sentences
 // POST   /api/books/:bookId/sentences        // stores all of a book’s sentences
 // GET    /api/books/:bookId/sentences/:word  // returns all of a book’s sentences
-//                                            // that contain a given word
+//                                               that contain a given word
 
 // Either GET or POST on /api/books/:bookId/sentences will create a sentenceArray
 // if one doesn't yet exist. The difference is whether you get a saucy response.
@@ -132,11 +132,8 @@ router.get('/:bookId/sentences/:word', (req, res, next) => {
   //     bookId: req.params.bookId
   //   }
   // })
-  Book.findById(req.params.bookId)
-    .then(foundBook => foundBook.sentenceArray)
-    .then(bookSentences => bookSentences.filter((sentence) => {
-      return sentence.indexOf(req.params.word) > -1;
-    }))
+  Book.findById(req.params.bookId).sentenceArray
+    .then(bookSentences => bookSentences.filter(sentence => sentence.indexOf(req.params.word) > -1))
     .then(wordSentences => res.json(wordSentences))
     .catch(next);
 });
@@ -158,6 +155,7 @@ function mapWords(arr) {
   });
   return JSON.stringify(map);
 }
+
 // GET /api/books/:bookId/words
 // Returns a list of all words in a book.
 // If the book has already been tokenized, retrieve the existing list.

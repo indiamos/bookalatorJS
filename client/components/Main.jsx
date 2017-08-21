@@ -26,19 +26,15 @@ const Main = (props) => {
 
 /* ----------------------- CONTAINER ----------------------- */
 
-const mapState = (state) => {
-  return {
-    isLoggedIn: !!state.user.id,
-  };
-};
+const mapState = state => ({
+  isLoggedIn: !!state.user.id,
+});
 
-const mapDispatch = (dispatch) => {
-  return {
-    handleClick() {
-      dispatch(logout());
-    }
-  };
-};
+const mapDispatch = dispatch => ({
+  handleClick() {
+    dispatch(logout());
+  },
+});
 
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
@@ -46,15 +42,8 @@ export default withRouter(connect(mapState, mapDispatch)(Main));
 
 /* ----------------------- PROP TYPES ----------------------- */
 
-// Main.propTypes = {
-//   children: PropTypes.shape,
-//   handleClick: PropTypes.func.isRequired,
-//   isLoggedIn: PropTypes.bool.isRequired,
-// };
-
-// Warning: Main: type specification of prop `children` is invalid; the type checker functio// n must return
-// `null` or an `Error` but returned a function. You may have forgotten to pass an argument to the type
-// checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument).
-// Main.defaultProps = {
-//   children: {},
-// };
+Main.propTypes = {
+  children: PropTypes.shape().isRequired,
+  handleClick: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+};

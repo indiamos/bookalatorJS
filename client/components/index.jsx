@@ -8,8 +8,7 @@ export { default as BookSelector } from './BookSelector';
 export { default as BookThumbnail } from './BookThumbnail';
 export { default as BookWordTable } from './BookWordTable';
 export { default as SingleBook } from './SingleBook';
-
 export { default as Main } from './Main';
 export { default as Navbar } from './Navbar';
-export { default as UserHome } from './user-home.js';
-export { Login, Signup } from './auth-form.js';
+export { default as UserHome } from './user-home';
+export { Login, Signup } from './auth-form';
