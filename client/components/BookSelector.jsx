@@ -32,7 +32,7 @@ const BookSelector = ({ books, handleChange, selectedBook, selectorID }) => {
 
 BookSelector.propTypes = {
   books: PropTypes.arrayOf(
-    PropTypes.shape.isRequired,
+    PropTypes.shape().isRequired,
   ).isRequired,
   handleChange: PropTypes.func.isRequired,
   selectedBook: PropTypes.number, // not the same as singleBook

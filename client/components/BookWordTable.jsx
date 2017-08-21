@@ -41,7 +41,7 @@ const BookWordTable = ({ bookId, wordMap, handleChange, wordMapSearchTerm = '' }
 };
 
 BookWordTable.propTypes = {
-  bookId: PropTypes.number().isRequired,
+  bookId: PropTypes.number.isRequired,
   handleChange: PropTypes.func,
   wordMap: PropTypes.shape().isRequired,
   wordMapSearchTerm: PropTypes.string,

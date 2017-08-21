@@ -66,10 +66,7 @@ AuthForm.propTypes = {
   name: PropTypes.string.isRequired,
   displayName: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  error: PropTypes.shape({
-    message: PropTypes.string,
-    name: PropTypes.string,
-  }),
+  error: PropTypes.shape(),
 };
 
 AuthForm.defaultProps = {
