@@ -4,14 +4,10 @@ import { Router } from 'react-router';
 import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import history from './history';
-import { Main, Login, Signup, SingleBook, UserHome } from './components';
+import { Main, Login, Signup, UserHome } from './components';
 import { me } from './store';
 
-// SingleBook
-// ? console.log('SingleBook found:', SingleBook)
-// : console.log('SingleBook not found :(');
-
-/* ------------------------------- COMPONENT ------------------------------- */
+/* ----------------------- COMPONENT ----------------------- */
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
@@ -24,8 +20,6 @@ class Routes extends Component {
       <Router history={history}>
         <Main>
           <Switch>
-            <Route path="/books/:bookId" component={SingleBook} />
-            <Route path="/books" component={SingleBook} />
             {/* Routes placed here are available to all visitors */}
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
@@ -44,28 +38,27 @@ class Routes extends Component {
   }
 }
 
-/* ------------------------------- CONTAINER ------------------------------- */
-const mapState = (state) => {
-  return {
-    // Being 'logged in' for our purposes will be defined has having a state.user
-    // that has a truthy id. Otherwise, state.user will be an empty object, and
-    // state.user.id will be falsey
-    isLoggedIn: !!state.user.id,
-  };
-};
+/**
+ * CONTAINER
+ */
+const mapState = state => ({
+  // Being 'logged in' for our purposes will be defined has having a state.user
+  // that has a truthy id. Otherwise, state.user will be an empty object, and
+  // state.user.id will be falsey
+  isLoggedIn: !!state.user.id,
+});
 
-
-const mapDispatch = (dispatch) => {
-  return {
-    loadInitialData() {
-      dispatch(me());
-    },
-  };
-};
+const mapDispatch = dispatch => ({
+  loadInitialData() {
+    dispatch(me());
+  },
+});
 
 export default connect(mapState, mapDispatch)(Routes);
 
-/* ------------------------------- PROP TYPES ------------------------------- */
+/**
+ * PROP TYPES
+ */
 Routes.propTypes = {
   loadInitialData: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,

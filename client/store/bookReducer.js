@@ -1,5 +1,5 @@
 import axios from 'axios';
-import history from '../history';
+// import history from '../history';
 
 /* -----------------    INITIAL STATE ------------------ */
 
@@ -29,7 +29,7 @@ const intialState = {
   books: [],
   bookSet1: [],
   bookSet2: [],
-  singleBook: {}
+  singleBook: {},
 };
 
 /* -----------------    ACTION TYPES ------------------ */
@@ -44,17 +44,13 @@ const getSingleBook = singleBook => ({ type: GET_SINGLE_BOOK, singleBook });
 
 /* ------------   THUNK CREATORS     ------------------ */
 
-export const fetchBookList = () => dispatch => {
-  axios.get('/api/books')
-    .then(res => dispatch(getBookList(res.data)))
-    .catch(err => console.error('Fetching books unsuccessful', err));
-};
+export const fetchBookList = () => dispatch => axios.get('/api/books')
+  .then(res => dispatch(getBookList(res.data)))
+  .catch(err => console.error('Fetching books unsuccessful', err));
 
-export const fetchSingleBook = (bookId) => dispatch => {
-  axios.get(`/api/books/${bookId}`)
-    .then(res => dispatch(getSingleBook(res.data)))
-    .catch(err => console.error('Fetching book unsuccessful', err));
-};
+export const fetchSingleBook = bookId => dispatch => axios.get(`/api/books/${bookId}`)
+  .then(res => dispatch(getSingleBook(res.data)))
+  .catch(err => console.error('Fetching book unsuccessful', err));
 
 // Not using these, because there's no friendly admin interface
 // export const createBook = (book) => dispatch => {
@@ -76,8 +72,8 @@ export const fetchSingleBook = (bookId) => dispatch => {
 
 /* ------------       REDUCERS     ------------------ */
 
-export default function(state = intialState, action) {
-  let newState = Object.assign({}, state);
+export default function (state = intialState, action) {
+  const newState = Object.assign({}, state);
   switch (action.type) {
     case GET_BOOK_LIST:
       newState.bookList = action.bookList;
@@ -89,4 +85,4 @@ export default function(state = intialState, action) {
       return state;
   }
   return newState;
-};
+}

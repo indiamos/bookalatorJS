@@ -41,5 +41,5 @@ module.exports = {
   Genre,
   Sentence,
   User,
-  Word
+  Word,
 };

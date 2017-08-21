@@ -1,29 +1,33 @@
-const db = require('../db');
-const { Author, Book, Genre } = require('../db/models');
-const axios = require ('axios');
+// const axios = require ('axios');
 const Promise = require('bluebird');
-module.exports = linkAuthorsBooksGenres;
+// const db = require('../db');
+const { Author, Book, Genre } = require('../db/models');
 
-// TO FIX: I can log the results of the functions getAuthorIds and getGenreIds right before they're passed into generateAuthorBookLinks, but there's some timing issue when  generateAuthorBookLinks actually gets resolved: "ReferenceError: Sabatini is not defined" or (sometimes Shakespeare), or "ReferenceError: Adventure is not defined."
+// TO FIX: I can log the results of the functions getAuthorIds and getGenreIds
+// right before they're passed into generateAuthorBookLinks, but there's some
+// timing issue when  generateAuthorBookLinks actually gets resolved:
+// "ReferenceError: Sabatini is not defined" or (sometimes Shakespeare), or
+// "ReferenceError: Adventure is not defined."
 function getAuthorIds(authorsToLink) {
-  let authorMap = {};
-  authorsToLink.forEach(author => {
-    let key = author.dataValues.lastName;
+  const authorMap = {};
+  authorsToLink.forEach((author) => {
+    const key = author.dataValues.lastName;
     authorMap[key] = author.dataValues.id;
   });
   return authorMap;
 }
 
 function getGenreIds(genresToLink) {
-  let genreMap = {};
-  genresToLink.forEach(genre => {
-    let key = genre.name;
+  const genreMap = {};
+  genresToLink.forEach((genre) => {
+    const key = genre.name;
     genreMap[key] = genre.id;
   });
   return genreMap;
 }
 
-// TO FIX: Dynamic associations, which are falling victim to some fucking race condition, and I can't figure out why.
+// TO FIX: Dynamic associations, which are falling victim to some fucking race
+// condition, and I can't figure out why.
 // ------------------------------------------
 // function generateAuthorBookLinks(BooksToLink, authorIDs, genreIDs) {
 //   let buildAuthorsBooksGenres = [];
@@ -69,10 +73,14 @@ function getGenreIds(genresToLink) {
 
 // WORKAROUND: Hard-coded associations, which will not always be accurate:
 // ------------------------------------------
-function generateAuthorBookLinks(BooksToLink, authorIDs, genreIDs) {
-  let buildAuthorsBooksGenres = [];
-  for (let i = BooksToLink.length - 1; i >= 0; i--) {
-    switch(BooksToLink[i].title) {
+function generateAuthorBookLinks(
+  BooksToLink,
+  // authorIDs,
+  // genreIDs
+) {
+  const buildAuthorsBooksGenres = [];
+  for (let i = BooksToLink.length - 1; i >= 0; i - 1) {
+    switch (BooksToLink[i].title) {
       case 'Emma':
       case 'Persuasion':
       case 'Sense and Sensibility':
@@ -116,19 +124,19 @@ function linkAuthorsBooksGenres() {
   return Promise.all([
     Author.findAll(),
     Book.findAll(),
-    Genre.findAll()
+    Genre.findAll(),
   ])
-  .spread((authors, books, genres) => {
-  // 2. Extract the record IDs so we can get at them
-    let authorMap = getAuthorIds(authors);
-    let genreMap = getGenreIds(genres);
-    let returnObject = {books, authorMap, genreMap};
-    return returnObject;
-  })
-  .then(({books, authorMap, genreMap}) => {
-// 3. Make a promise glob of all the association things, which gets run by seed.js
-    return Promise.map(generateAuthorBookLinks(books, authorMap, genreMap), buildAuthorsBooksGenres => {
-      return buildAuthorsBooksGenres;
-    });
-  })
+    .spread((authors, books, genres) => {
+    // 2. Extract the record IDs so we can get at them
+      const authorMap = getAuthorIds(authors);
+      const genreMap = getGenreIds(genres);
+      const returnObject = { books, authorMap, genreMap };
+      return returnObject;
+    })
+  // 3. Make a promise glob of all the association things, which gets run by seed.js
+    .then(({ books, authorMap, genreMap }) =>
+      Promise.map(generateAuthorBookLinks(books, authorMap, genreMap),
+        buildAuthorsBooksGenres => buildAuthorsBooksGenres));
 }
+
+module.exports = linkAuthorsBooksGenres;

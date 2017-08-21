@@ -1,10 +1,10 @@
 const db = require('../db');
-const Author = db.model('author');
-
 const Promise = require('bluebird');
 
-function generateAuthors () {
-  let authors = [];
+const Author = db.model('author');
+
+function generateAuthors() {
+  const authors = [];
   authors.push(Author.build({ // id = 1
     firstName: 'Jane',
     lastName: 'Austen',
@@ -68,10 +68,8 @@ function generateAuthors () {
   return authors;
 }
 
-function createAuthors () {
-  return Promise.map(generateAuthors(), function (author) {
-    return author.save();
-  });
+function createAuthors() {
+  return Promise.map(generateAuthors(), author => author.save());
 }
 
 module.exports = createAuthors;
