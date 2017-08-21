@@ -80,9 +80,9 @@ SingleBook.propTypes = {
 
 SingleBook.defaultProps = {
   books: [],
+  comparisonBook: {},
   handleChange: () => console.log('handleChange was invoked'),
   singleBook: {},
-  comparisonBook: {},
 };
 
 export default SingleBook;
