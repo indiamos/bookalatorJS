@@ -1,8 +1,8 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
-const BookWordTable = ({ bookId, wordMap, onChange, wordMapSearchTerm = '' }) => {
+const BookWordTable = ({ bookId, wordMap, handleChange, wordMapSearchTerm = '' }) => {
   console.log('wordMap:', wordMap);
 
   return (
@@ -18,7 +18,7 @@ const BookWordTable = ({ bookId, wordMap, onChange, wordMapSearchTerm = '' }) =>
         </tr>
         <tr>
           <td colSpan="2">
-            <form className="word-map-search col-xs-12" onChange={onChange()}>
+            <form className="word-map-search col-xs-12" onChange={handleChange()}>
               <input className="form-control" value={wordMapSearchTerm} />
               <span className="search-icon glyphicon glyphicon-search" aria-hidden="true" />
             </form>
@@ -40,9 +40,16 @@ const BookWordTable = ({ bookId, wordMap, onChange, wordMapSearchTerm = '' }) =>
   );
 };
 
-// BookWordTable.propTypes = {
-//   wordMap: PropTypes.shape.isRequired,
-//   bookId: PropTypes.number.isRequired,
-// };
+BookWordTable.propTypes = {
+  bookId: PropTypes.number().isRequired,
+  handleChange: PropTypes.func,
+  wordMap: PropTypes.shape().isRequired,
+  wordMapSearchTerm: PropTypes.string,
+};
+
+BookWordTable.defaultProps = {
+  handleChange: () => console.log('handleChange was called'),
+  wordMapSearchTerm: '',
+};
 
 export default BookWordTable;
