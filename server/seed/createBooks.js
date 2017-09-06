@@ -140,7 +140,8 @@ function generateBooks() {
 }
 
 function createBooks() {
-  return Promise.map(generateBooks(), book => book.save());
+  return Promise.mapSeries(generateBooks(), book => book.save())
+    .then(() => console.log('createBooks supposedly resolved…'));
 }
 
 module.exports = createBooks;
