@@ -1,130 +1,78 @@
-// const axios = require ('axios');
 const Promise = require('bluebird');
-// const db = require('../db');
 const { Author, Book, Genre } = require('../db/models');
 
-// TO FIX: I can log the results of the functions getAuthorIds and getGenreIds
-// right before they're passed into generateAuthorBookLinks, but there's some
-// timing issue when  generateAuthorBookLinks actually gets resolved:
-// "ReferenceError: Sabatini is not defined" or (sometimes Shakespeare), or
-// "ReferenceError: Adventure is not defined."
 function getAuthorIds(authorsToLink) {
-  const authorMap = {};
+  const authorMap = new Map();
   authorsToLink.forEach((author) => {
-    const key = author.dataValues.lastName;
-    authorMap[key] = author.dataValues.id;
+    authorMap.set(author.dataValues.lastName, author.dataValues.id);
   });
+  console.log('authorMap:', authorMap);
   return authorMap;
 }
 
 function getGenreIds(genresToLink) {
-  const genreMap = {};
+  const genreMap = new Map();
   genresToLink.forEach((genre) => {
-    const key = genre.name;
-    genreMap[key] = genre.id;
+    genreMap.set(genre.name, genre.id);
   });
+  console.log('genreMap:', genreMap);
   return genreMap;
 }
 
-// TO FIX: Dynamic associations, which are falling victim to some fucking race
-// condition, and I can't figure out why.
-// ------------------------------------------
-// function generateAuthorBookLinks(BooksToLink, authorIDs, genreIDs) {
-//   let buildAuthorsBooksGenres = [];
-//   for (let i = BooksToLink.length - 1; i >= 0; i--) {
-//     switch(BooksToLink[i].title) {
-//       case 'Emma':
-//       case 'Persuasion':
-//       case 'Sense and Sensibility':
-//         buildAuthorsBooksGenres.push(BooksToLink[i].addCreator(authorIDs[Austen]));
-//         buildAuthorsBooksGenres.push(BooksToLink[i].addType(genreIDs[Romance]));
-//         break;
-//       case 'The Ball and The Cross':
-//       case 'The Wisdom of Father Brown':
-//       case 'The Man Who Was Thursday: A Nightmare':
-//         buildAuthorsBooksGenres.push(BooksToLink[i].addCreator(authorIDs[Chesterton]));
-//         buildAuthorsBooksGenres.push(BooksToLink[i].addType(genreIDs[Mystery]));
-//         break;
-//       case 'The Parent’s Assistant':
-//         buildAuthorsBooksGenres.push(BooksToLink[i].addCreator(authorIDs[Edgeworth]));
-//         buildAuthorsBooksGenres.push(BooksToLink[i].addType(genreIDs[Juvenile]));
-//         break;
-//       case 'Herland':
-//         buildAuthorsBooksGenres.push(BooksToLink[i].addCreator(authorIDs[Gilman]));
-//         buildAuthorsBooksGenres.push(BooksToLink[i].addType(genreIDs[Utopian]));
-//         break;
-//       case 'Scaramouche: A Romance of the French Revolution':
-//         buildAuthorsBooksGenres.push(BooksToLink[i].addCreator(authorIDs[Sabatini]));
-//         buildAuthorsBooksGenres.push(BooksToLink[i].addType(genreIDs[Adventure]));
-//         break;
-//       case 'The Tragedy of Julius Caesar':
-//       case 'The Tragedy of Hamlet, Prince of Denmark':
-//       case 'The Tragedy of Macbeth':
-//         buildAuthorsBooksGenres.push(BooksToLink[i].addCreator(authorIDs[Shakespeare]));
-//         buildAuthorsBooksGenres.push(BooksToLink[i].addType(genreIDs[Drama]));
-//         buildAuthorsBooksGenres.push(BooksToLink[i].addType(genreIDs[Tragedy]));
-//         break;
-//       default:
-//         console.log(`WTF book is ${BooksToLink[i].title}?!`);
-//     }
-//   }
-//   return buildAuthorsBooksGenres;
-// }
-
-// WORKAROUND: Hard-coded associations, which will not always be accurate:
-// ------------------------------------------
-function generateAuthorBookLinks(
-  BooksToLink,
-  // authorIDs,
-  // genreIDs
-) {
+function generateAuthorBookLinks(BooksToLink, authorMap, genreMap) {
   const buildAuthorsBooksGenres = [];
-  for (let i = BooksToLink.length - 1; i >= 0; i - 1) {
-    switch (BooksToLink[i].title) {
+  BooksToLink.forEach((book) => {
+    switch(book.title) {
       case 'Emma':
       case 'Persuasion':
       case 'Sense and Sensibility':
-        buildAuthorsBooksGenres.push(BooksToLink[i].addCreator(1));
-        buildAuthorsBooksGenres.push(BooksToLink[i].addType(5));
+        buildAuthorsBooksGenres.push(book.addCreator(authorMap.get('Austen')));
+        buildAuthorsBooksGenres.push(book.addType(genreMap.get('Romance')));
         break;
       case 'The Ball and The Cross':
       case 'The Wisdom of Father Brown':
       case 'The Man Who Was Thursday: A Nightmare':
-        buildAuthorsBooksGenres.push(BooksToLink[i].addCreator(2));
-        buildAuthorsBooksGenres.push(BooksToLink[i].addType(4));
+        buildAuthorsBooksGenres.push(book.addCreator(authorMap.get('Chesterton')));
+        buildAuthorsBooksGenres.push(book.addType(genreMap.get('Mystery')));
         break;
       case 'The Parent’s Assistant':
-        buildAuthorsBooksGenres.push(BooksToLink[i].addCreator(3));
-        buildAuthorsBooksGenres.push(BooksToLink[i].addType(3));
+        buildAuthorsBooksGenres.push(book.addCreator(authorMap.get('Edgeworth')));
+        buildAuthorsBooksGenres.push(book.addType(genreMap.get('Juvenile')));
         break;
       case 'Herland':
-        buildAuthorsBooksGenres.push(BooksToLink[i].addCreator(4));
-        buildAuthorsBooksGenres.push(BooksToLink[i].addType(7));
+        buildAuthorsBooksGenres.push(book.addCreator(authorMap.get('Gilman')));
+        buildAuthorsBooksGenres.push(book.addType(genreMap.get('Utopian')));
         break;
       case 'Scaramouche: A Romance of the French Revolution':
-        buildAuthorsBooksGenres.push(BooksToLink[i].addCreator(5));
-        buildAuthorsBooksGenres.push(BooksToLink[i].addType(1));
+        buildAuthorsBooksGenres.push(book.addCreator(authorMap.get('Sabatini')));
+        buildAuthorsBooksGenres.push(book.addType(genreMap.get('Adventure')));
         break;
       case 'The Tragedy of Julius Caesar':
       case 'The Tragedy of Hamlet, Prince of Denmark':
       case 'The Tragedy of Macbeth':
-        buildAuthorsBooksGenres.push(BooksToLink[i].addCreator(6));
-        buildAuthorsBooksGenres.push(BooksToLink[i].addType(2));
-        buildAuthorsBooksGenres.push(BooksToLink[i].addType(6));
+        buildAuthorsBooksGenres.push(book.addCreator(authorMap.get('Shakespeare')));
+        buildAuthorsBooksGenres.push(book.addType(genreMap.get('Drama')));
+        buildAuthorsBooksGenres.push(book.addType(genreMap.get('Tragedy')));
         break;
       default:
-        console.log(`WTF book is ${BooksToLink[i].title}?!`);
+        console.log(`WTF book is ${book.title}?!`);
     }
-  }
+  });
   return buildAuthorsBooksGenres;
 }
 
 function linkAuthorsBooksGenres() {
-  // 1. Get all the data that was just seeded
+  // 1. Get ids and unique properties for all the records that were just seeded
   return Promise.all([
-    Author.findAll(),
-    Book.findAll(),
-    Genre.findAll(),
+    Author.findAll({
+      attributes: ['id', 'lastName'],
+    }),
+    Book.findAll({
+      attributes: ['id', 'title'],
+    }),
+    Genre.findAll({
+      attributes: ['id', 'name'],
+    }),
   ])
     .spread((authors, books, genres) => {
     // 2. Extract the record IDs so we can get at them
