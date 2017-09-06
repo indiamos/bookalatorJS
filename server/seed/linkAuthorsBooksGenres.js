@@ -6,7 +6,7 @@ function getAuthorIds(authorsToLink) {
   authorsToLink.forEach((author) => {
     authorMap.set(author.dataValues.lastName, author.dataValues.id);
   });
-  console.log('authorMap:', authorMap);
+  // console.log('authorMap:', authorMap);
   return authorMap;
 }
 
@@ -15,14 +15,14 @@ function getGenreIds(genresToLink) {
   genresToLink.forEach((genre) => {
     genreMap.set(genre.name, genre.id);
   });
-  console.log('genreMap:', genreMap);
+  // console.log('genreMap:', genreMap);
   return genreMap;
 }
 
 function generateAuthorBookLinks(BooksToLink, authorMap, genreMap) {
   const buildAuthorsBooksGenres = [];
   BooksToLink.forEach((book) => {
-    switch(book.title) {
+    switch (book.title) {
       case 'Emma':
       case 'Persuasion':
       case 'Sense and Sensibility':
