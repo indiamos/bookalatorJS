@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   entry: './client/index.jsx',
   output: {
@@ -7,6 +9,10 @@ module.exports = {
   devtool: 'source-map',
   module: {
     rules: [
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+      },
       {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
@@ -28,5 +34,6 @@ module.exports = {
   },
   resolve: {
     extensions: ['.webpack.js', '.web.js', '.js', '.json', '.jsx'],
+    // modules: [path.resolve(__dirname, 'src'), 'node_modules'],
   },
 };
