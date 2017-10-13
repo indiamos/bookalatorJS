@@ -2,29 +2,20 @@ const db = require('../db');
 
 const Genre = db.model('genre');
 
-const Promise = require('bluebird');
-
-const genreList = [
-  'Adventure',
-  'Drama',
-  'Juvenile',
-  'Mystery',
-  'Romance',
-  'Tragedy',
-  'Utopian',
+const genres = [
+  { name: 'Adventure' },
+  { name: 'Drama' },
+  { name: 'Juvenile' },
+  { name: 'Mystery' },
+  { name: 'Romance' },
+  { name: 'Tragedy' },
+  { name: 'Utopian' },
 ];
 
-function generateGenres() {
-  const genres = [];
-  genreList.forEach((name) => {
-    genres.push(Genre.build({ name }));
-  });
-  return genres;
-}
-
 function createGenres() {
-  return Promise.map(generateGenres(), genre => genre.save());
+  Genre.bulkCreate(genres)
+    // .then(() => Genre.findAll())
+    .then(() => console.log('genres supposedly created…'));
 }
 
 module.exports = createGenres;
-
