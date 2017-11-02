@@ -1,31 +1,6 @@
 import axios from 'axios';
-// import history from '../history';
 
-/* -----------------    INITIAL STATE ------------------ */
-
-// initialState = {
-//   /* Books ---------------------------------------------- */
-//      Each book object includes book.sentenceArray and
-//      book.wordMap, so we don’t have to retrieve those
-//      separately.
-//   books: [],         // array of ALL book objects
-//   bookSet1: [],      // array of book IDs; can be saved
-//                      // to the db as a BookSet, eventually
-//   bookSet2: [],      // another array of book IDs, for
-//                      // comparison
-//   selectedWord: '',  // the word itself; we're not using a
-//                      // discrete Word model, so they don't
-//                      // have persistent IDs
-//   singleBook: {}     // a single book object
-// },
-//   /* Users ---------------------------------------------- */
-//   currentUser: {     // if a user is logged in at all
-//     userId: null,
-//     isAdmin: false
-//    }
-// }
-
-const intialState = {
+const initialState = {
   books: [],
   bookSet1: [],
   bookSet2: [],
@@ -72,7 +47,7 @@ export const fetchSingleBook = bookId => dispatch => axios.get(`/api/books/${boo
 
 /* ------------       REDUCERS     ------------------ */
 
-export default function (state = intialState, action) {
+export default function (state = initialState, action) {
   const newState = Object.assign({}, state);
   switch (action.type) {
     case GET_BOOK_LIST:

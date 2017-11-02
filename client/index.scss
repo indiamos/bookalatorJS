@@ -3,6 +3,7 @@ $light-orange: #fbdec4;
 $muted-blue: #369;
 
 @import url('https://fonts.googleapis.com/css?family=Faster+One');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 
 body {
   font-family: 'Source Sans Pro', sans-serif;
@@ -22,6 +23,9 @@ body {
   }
 }
 
+img {
+  max-width: 100%;
+}
 // ----------------------------- Navbar component ------------------------------
 
 .navbar {
@@ -44,6 +48,24 @@ body {
 }
 
 // ---------------------------- Author components ------------------------------
+
+.single-author {
+  .external-links {
+    list-style-type: none;
+    padding-left: 0;
+
+    li {
+      border-right: 1px solid $book-orange;
+      display: inline-block;
+      margin-right: 1em;
+      padding-right: 1em;
+    }
+
+    :last-child {
+      border-right: none;
+    }
+  }
+}
 
 // ----------------------------- Book components -------------------------------
 
@@ -78,11 +100,7 @@ body {
   // }
 }
 
-.book-thumbnail {
-  img {
-    max-width: 100%;
-  }
-}
+.book-thumbnail {}
 
 .book-word-table {
   border: 1px dotted $book-orange;
