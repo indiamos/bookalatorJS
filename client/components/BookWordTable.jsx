@@ -41,14 +41,18 @@ const BookWordTable = ({ bookId, wordMap, handleChange, wordMapSearchTerm = '' }
 };
 
 BookWordTable.propTypes = {
+  // bookId: PropTypes.number.isRequired,
   bookId: PropTypes.number.isRequired,
   handleChange: PropTypes.func,
-  wordMap: PropTypes.shape().isRequired,
+  // wordMap: PropTypes.shape().isRequired,
+  wordMap: PropTypes.shape(),
   wordMapSearchTerm: PropTypes.string,
 };
 
 BookWordTable.defaultProps = {
-  handleChange: () => console.log('handleChange was called'),
+  bookId: 1,
+  handleChange() { console.log('dummy handleChange was called from BookWordTable'); },
+  wordMap: {},
   wordMapSearchTerm: '',
 };
 

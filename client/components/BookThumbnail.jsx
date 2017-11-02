@@ -8,8 +8,15 @@ const BookThumbnail = ({ coverURL, title }) => (
 );
 
 BookThumbnail.propTypes = {
-  coverURL: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
+  // coverURL: PropTypes.string.isRequired,
+  // title: PropTypes.string.isRequired,
+  coverURL: PropTypes.string,
+  title: PropTypes.string,
+};
+
+BookThumbnail.defaultProps = {
+  coverURL: 'http://placeimg.com/480/640/animals',
+  title: 'The Null Title',
 };
 
 export default BookThumbnail;
