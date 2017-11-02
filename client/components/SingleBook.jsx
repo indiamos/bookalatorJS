@@ -35,7 +35,7 @@ const SingleBook = ({
   handleChange = dummyHandleChange,
   singleBook = dummyBook,
 }) => {
-  console.log('singleBook:', singleBook);
+  // console.log('singleBook:', singleBook);
   return (
     <div className="single-book col-lg-8 col-lg-offset-2">
       <div className="single-book row">

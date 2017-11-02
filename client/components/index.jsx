@@ -10,5 +10,6 @@ export { default as BookWordTable } from './BookWordTable';
 export { Login, Signup } from './auth-form';
 export { default as Main } from './Main';
 export { default as Navbar } from './Navbar';
+export { default as SingleAuthor } from './SingleAuthor';
 export { default as SingleBook } from './SingleBook';
 export { default as UserHome } from './user-home';
