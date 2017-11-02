@@ -24,6 +24,7 @@ const Navbar = ({
         <span className="icon-bar" />
       </button>
       <Link className="navbar-brand" to="/books"><span><img
+        className="logoimg"
         src="/img/noun_973057_cc_F38F19_reflected.png"
         alt="book icon"
       /></span>Bookalator</Link>

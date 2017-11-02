@@ -34,12 +34,14 @@ BookSelector.propTypes = {
   books: PropTypes.arrayOf(
     PropTypes.shape().isRequired,
   ).isRequired,
-  handleChange: PropTypes.func.isRequired,
+  // handleChange: PropTypes.func.isRequired,
+  handleChange: PropTypes.func,
   selectedBook: PropTypes.number, // not the same as singleBook
   selectorID: PropTypes.string.isRequired,
 };
 
 BookSelector.defaultProps = {
+  handleChange() { console.log('dummy handleChange was called from BookSelector'); },
   selectedBook: 1,
 };
 
