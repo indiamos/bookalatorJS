@@ -1,20 +1,10 @@
-// This component should be loaded with an authorId in the URL (e.g., `/authors/1`).
-// Sometimes that author's data will already be on the store and could be passed in as a prop?
-// Load the page with blank data, at first?
-// Once the component has mounted, dispatch a request for the author's data.
-// When the data comes back, re-render the page.
-// If no such data is found, load the author list page?
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { fetchSingleAuthor } from '../store';
 
 class SingleAuthor extends Component {
-  constructor() {
-    super();
-  }
-
   componentDidMount() {
     const authorId = +this.props.match.params.authorId;
     this.props.loadAuthor(authorId);
@@ -24,7 +14,7 @@ class SingleAuthor extends Component {
     const {
       firstName,
       lastName,
-      // gender,
+      // pronouns,
       birthYear,
       deathYear,
       imageURL,
@@ -60,7 +50,7 @@ const mapState = state => ({
   author: state.author,
 });
 
-const mapDispatch = (dispatch, ownProps) => ({
+const mapDispatch = dispatch => ({
   loadAuthor(authorId) { return dispatch(fetchSingleAuthor(authorId)); },
 });
 
@@ -72,7 +62,7 @@ SingleAuthor.propTypes = {
   author: PropTypes.shape({
     firstName: PropTypes.string,
     lastName: PropTypes.string,
-    // gender: PropTypes.number,
+    // pronouns: PropTypes.number,
     birthYear: PropTypes.number,
     deathYear: PropTypes.number,
     imageURL: PropTypes.string,
@@ -91,7 +81,7 @@ SingleAuthor.defaultProps = {
   author: {
     firstName: '',
     lastName: '',
-    // gender: null,
+    // pronouns: null,
     birthYear: null,
     deathYear: null,
     imageURL: '',
