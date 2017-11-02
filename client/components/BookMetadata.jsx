@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const BookMetadata = ({ singleBook }) => {
   const { author, pgURL, uniqueCount, wikipediaURL, wordCount, year } = singleBook;
   const { firstName, lastName, birthYear, deathYear } = author;
-  console.log('author:', author);
+  // console.log('author:', author);
 
   return (
     <div className="book-metadata col-md-6 col-sm-8 col-xs-12">

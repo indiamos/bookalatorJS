@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const BookWordTable = ({ bookId, wordMap, handleChange, wordMapSearchTerm = '' }) => {
-  console.log('wordMap:', wordMap);
+  // console.log('wordMap:', wordMap);
 
   return (
     <table className="book-word-table">
