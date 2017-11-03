@@ -13,11 +13,9 @@ module.exports = router;
 
 // GET /api/words/
 // Returns all word objects from all books in the collection!
-router.get('/', (req, res, next) => {
-  Word.findAll()
-    .then(words => res.json(words))
-    .catch(next);
-});
+router.get('/', (req, res, next) => Word.findAll()
+  .then(words => res.json(words))
+  .catch(next));
 
 // GET /api/words/:word
 // Returns all book objects that contain a given word
@@ -32,20 +30,18 @@ router.get('/', (req, res, next) => {
 // });
 
 // returns all books containing a given word
-router.get('/:word', (req, res, next) => {
-  Book.findAll({
-    include: [
-      {
-        model: Word,
-        where: {
-          word: req.params.word,
-        },
+router.get('/:word', (req, res, next) => Book.findAll({
+  include: [
+    {
+      model: Word,
+      where: {
+        word: req.params.word,
       },
-    ],
-  })
-    .then(books => res.json(books))
-    .catch(next);
-});
+    },
+  ],
+})
+  .then(books => res.json(books))
+  .catch(next));
 
 // GET /api/words/:word/sentences
 // Returns all sentence objects in the collection that contain a given word

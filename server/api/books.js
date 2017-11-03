@@ -1,5 +1,4 @@
 const router = require('express').Router();
-// const Promise = require('bluebird');
 const natural = require('natural');
 const { Book, Sentence, Word } = require('../db/models');
 
@@ -21,47 +20,34 @@ const sentenceTokenizer = new natural.SentenceTokenizer();
 // POST   /api/books/:bookId/words            // stores all of a book’s words
 
 // GET /api/books/
-router.get('/', (req, res, next) => {
-  Book.findAll()
-    .then(books => res.json(books))
-    .catch(next);
-});
-
 // POST /api/books/
 // Books should be tokenized during the import process—probably as an afterCreate hook.
-router.post('/', (req, res, next) => {
-  Book.create(req.body)
+router.route('/')
+  .get((req, res, next) => Book.findAll()
+    .then(books => res.json(books))
+    .catch(next))
+  .post((req, res, next) => Book.create(req.body)
     .then(book => res.status(201).json(book))
-    .catch(next);
-});
+    .catch(next));
 
 // GET /api/books/:bookId
-router.get('/:bookId', (req, res, next) => {
-  Book.findById(req.params.bookId)
-    .then(book => res.json(book))
-    .catch(next);
-});
-
 // PUT /api/books/:bookId
-router.put('/:bookId', (req, res, next) => {
-  Book.findById(req.params.bookId)
-    .then(book => book.update(req.body))
-    .then((updated) => {
-      const revised = updated.dataValues; // putting this value directly in line 39 errors
-      res.send({ message: 'Updated sucessfully', revised });
-    })
-    .catch(next);
-});
-
 // DELETE /api/books/:bookId
-router.delete('/:bookId', (req, res, next) => {
-  Book.findById(req.params.bookId)
+router.route('/:bookId')
+  .get((req, res, next) => Book.findById(req.params.bookId)
+    .then(book => res.json(book))
+    .catch(next))
+  .put((req, res, next) => Book.findById(req.params.bookId)
+    .then(book => book.update(req.body, {
+      returning: true,
+      plain: true,
+    }))
+    .then(updated => res.send({ message: 'Updated sucessfully', updated }))
+    .catch(next))
+  .delete((req, res, next) => Book.findById(req.params.bookId)
     .then(foundBook => foundBook.destroy())
-    .then(() => {
-      res.send({ message: 'Deleted successfully' });
-    })
-    .catch(next);
-});
+    .then(() => res.send({ message: 'Deleted successfully' }))
+    .catch(next));
 
 // ----------------------- BOOK-SENTENCE ROUTES --------------------------------
 
@@ -74,10 +60,13 @@ router.delete('/:bookId', (req, res, next) => {
 // if one doesn't yet exist. The difference is whether you get a saucy response.
 
 // GET /api/books/:bookId/sentences
-// Returns all of a book’s sentences
-router.get('/:bookId/sentences', (req, res, next) => {
+//   Returns all of a book’s sentences
+// POST /api/books/:bookId/sentences
+//   Stores all of a book’s sentences - should happen during the import process—
+//   probably as an afterCreate hook.
+router.route('/:bookId/sentences')
   // 1. get the book’s text
-  Book.findById(req.params.bookId)
+  .get((req, res, next) => Book.findById(req.params.bookId)
   // 2. tokenize the text
     .then((foundBook) => {
       let sentenceArray;
@@ -88,21 +77,18 @@ router.get('/:bookId/sentences', (req, res, next) => {
         foundBook.update({
           sentenceArray,
           sentencesTokenized: true,
+        }, {
+          returning: true,
+          plain: true,
         });
       }
       return sentenceArray;
     // 3. build an array of objects
     })
     .then(allSentences => res.json(allSentences))
-    .catch(next);
-});
-
-// POST /api/books/:bookId/sentences
-// Stores all of a book’s sentences - should happen during the import process—
-// probably as an afterCreate hook.
-router.post('/:bookId/sentences', (req, res, next) => {
+    .catch(next))
   // 1. get the book’s text
-  Book.findById(req.params.bookId)
+  .post((req, res, next) => Book.findById(req.params.bookId)
   // 2. tokenize the text
     .then((foundBook) => {
       let sentenceArray;
@@ -116,13 +102,15 @@ router.post('/:bookId/sentences', (req, res, next) => {
         foundBook.update({
           sentenceArray,
           sentencesTokenized: true,
+        }, {
+          returning: true,
+          plain: true,
         });
       }
       return { sentenceArray, status };
     })
     .then(({ sentenceArray, status }) => res.status(status).json(sentenceArray))
-    .catch(next);
-});
+    .catch(next));
 
 // GET /api/books/:bookId/sentences/:word
 // Returns all of a book’s sentences that contain a given word
@@ -157,13 +145,17 @@ function mapWords(arr) {
 }
 
 // GET /api/books/:bookId/words
-// Returns a list of all words in a book.
-// If the book has already been tokenized, retrieve the existing list.
-// Otherwise, condense the array into an object, post it to the book’s `wordMap`
-// field, and then return the wordMap.
-router.get('/:bookId/words', (req, res, next) => {
+//   Returns a list of all words in a book.
+//   If the book has already been tokenized, retrieve the existing list.
+//   Otherwise, condense the array into an object, post it to the book’s `wordMap`
+//   field, and then return the wordMap.
+// POST /api/books/:bookId/words
+//   Stores all of a book’s words
+//   If the book has already been tokenized, say you’re a teapot.
+//   Otherwise, post the array to the book’s `wordArray` field.
   // 1. Get the book object
-  Book.findById(req.params.bookId)
+router.route('/:bookId/words')
+  .get((req, res, next) => Book.findById(req.params.bookId)
     .then((foundBook) => {
       let wordMap;
       // 2. Check whether it's already been tokenized
@@ -178,21 +170,17 @@ router.get('/:bookId/words', (req, res, next) => {
           wordsTokenized: true,
           wordCount: wordArray.length,
           uniqueCount: Object.keys(wordMap).length,
+        }, {
+          returning: true,
+          plain: true,
         });
       }
       return wordMap;
     })
     .then(allWords => res.send(allWords))
-    .catch(next);
-});
-
-// POST /api/books/:bookId/words
-// Stores all of a book’s words
-// If the book has already been tokenized, say you’re a teapot.
-// Otherwise, post the array to the book’s `wordArray` field.
-router.post('/:bookId/words', (req, res, next) => {
+    .catch(next))
   // 1. Get the book object
-  Book.findById(req.params.bookId)
+  .post((req, res, next) => Book.findById(req.params.bookId)
     .then((foundBook) => {
       let wordMap;
       let status;
@@ -215,5 +203,4 @@ router.post('/:bookId/words', (req, res, next) => {
       return { wordMap, status };
     })
     .then(({ wordMap, status }) => res.status(status).send(wordMap))
-    .catch(next);
-});
+    .catch(next));
