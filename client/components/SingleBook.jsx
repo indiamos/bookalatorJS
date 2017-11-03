@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import DocumentTitle from 'react-document-title';
 // import { Link } from 'react-router-dom';
 import { BookMetadata, BookSelector, BookThumbnail, BookWordTable } from '../components';
 import {
@@ -34,9 +35,8 @@ const SingleBook = ({
   comparisonBook = dummyComparisonBook,
   handleChange = dummyHandleChange,
   singleBook = dummyBook,
-}) => {
-  // console.log('singleBook:', singleBook);
-  return (
+}) => (
+  <DocumentTitle title={`${singleBook.shortTitle || 'Single Book'} | Bookalator`}>
     <div className="single-book col-lg-8 col-lg-offset-2">
       <div className="single-book row">
         <div className="left-book-card col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -70,8 +70,8 @@ const SingleBook = ({
         />
       </div>
     </div>
-  );
-};
+  </DocumentTitle>
+);
 
 SingleBook.propTypes = {
   books: PropTypes.arrayOf(

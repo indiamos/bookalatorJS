@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { fetchSingleAuthor } from '../store';
@@ -22,24 +23,26 @@ class SingleAuthor extends Component {
       wikipediaURL,
     } = this.props.author;
     return (
-      <div className="single-author col-lg-8 col-lg-offset-2">
-        <div className="single-author row">
-          <div className="left-author-card col-xs-12 col-sm-4 col-md-3 col-lg-2">
-            <figure><img src={imageURL} alt={`${firstName} ${lastName}`} /></figure>
-          </div>
+      <DocumentTitle title={`${firstName} ${lastName} | Bookalator`}>
+        <div className="single-author col-lg-8 col-lg-offset-2">
+          <div className="single-author row">
+            <div className="left-author-card col-xs-12 col-sm-4 col-md-3 col-lg-2">
+              <figure><img src={imageURL} alt={`${firstName} ${lastName}`} /></figure>
+            </div>
 
-          <div className="right-author-card col-xs-12 col-sm-8 col-md-9 col-lg-10">
-            <div className="author-metadata">
-              <h1>{firstName} {lastName}</h1>
-              { birthYear || deathYear ? <p>{birthYear ? `${birthYear}–` : '?–'}{deathYear ? `${deathYear}` : '?–'}</p> : null}
-              <ul className="external-links">
-                {pgURL ? <li><a href={pgURL} target="_blank">Project Gutenberg</a></li> : null}
-                {wikipediaURL ? <li><a href={wikipediaURL} target="_blank">Wikipedia</a></li> : null}
-              </ul>
+            <div className="right-author-card col-xs-12 col-sm-8 col-md-9 col-lg-10">
+              <div className="author-metadata">
+                <h1>{firstName} {lastName}</h1>
+                { birthYear || deathYear ? <p>{birthYear ? `${birthYear}–` : '?–'}{deathYear ? `${deathYear}` : '?–'}</p> : null}
+                <ul className="external-links">
+                  {pgURL ? <li><a href={pgURL} target="_blank">Project Gutenberg</a></li> : null}
+                  {wikipediaURL ? <li><a href={wikipediaURL} target="_blank">Wikipedia</a></li> : null}
+                </ul>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </DocumentTitle>
     );
   }
 }
