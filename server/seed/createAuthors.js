@@ -6,7 +6,7 @@ const authors = [
   {
     firstName: 'Jane',
     lastName: 'Austen',
-    gender: 'female',
+    pronoun: 'she',
     birthYear: 1775,
     deathYear: 1817,
     imageURL: 'https://upload.wikimedia.org/wikipedia/commons/c/cc/CassandraAusten-JaneAusten%28c.1810%29_hires.jpg',
@@ -16,7 +16,7 @@ const authors = [
   {
     firstName: 'G. K.',
     lastName: 'Chesterton',
-    gender: 'male',
+    pronoun: 'he',
     birthYear: 1874,
     deathYear: 1936,
     imageURL: 'https://upload.wikimedia.org/wikipedia/commons/7/75/Gilbert_Chesterton.jpg',
@@ -26,7 +26,7 @@ const authors = [
   {
     firstName: 'Maria',
     lastName: 'Edgeworth',
-    gender: 'female',
+    pronoun: 'she',
     birthYear: 1768,
     deathYear: 1849,
     imageURL: 'https://upload.wikimedia.org/wikipedia/commons/9/97/Maria_Edgeworth_by_John_Downman_1807.jpg',
@@ -36,7 +36,7 @@ const authors = [
   {
     firstName: 'Charlotte Perkins',
     lastName: 'Gilman',
-    gender: 'female',
+    pronoun: 'she',
     birthYear: 1860,
     deathYear: 1935,
     imageURL: 'https://upload.wikimedia.org/wikipedia/commons/0/00/Charlotte_Perkins_Gilman_c._1900.jpg',
@@ -46,7 +46,7 @@ const authors = [
   {
     firstName: 'Rafael',
     lastName: 'Sabatini',
-    gender: 'male',
+    pronoun: 'he',
     birthYear: 1875,
     deathYear: 1950,
     imageURL: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Portrait_of_Rafael_Sabatini.jpg',
@@ -56,7 +56,7 @@ const authors = [
   {
     firstName: 'William',
     lastName: 'Shakespeare',
-    gender: 'male',
+    pronoun: 'he',
     birthYear: 1564,
     deathYear: 1616,
     imageURL: 'https://upload.wikimedia.org/wikipedia/commons/a/a2/Shakespeare.jpg',

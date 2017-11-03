@@ -3,7 +3,7 @@ import axios from 'axios';
 const initialState = {
   firstName: '',
   lastName: '',
-  gender: null,
+  pronoun: null,
   birthYear: null,
   deathYear: null,
   imageURL: '',

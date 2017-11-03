@@ -33,7 +33,7 @@
 #### Components
 
 * format picker: table, cards
-* author table: name, birthYear, deathYear, gender
+* author table: name, birthYear, deathYear, pronoun
 
 #### Notes
 
