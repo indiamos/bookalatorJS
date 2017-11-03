@@ -22,7 +22,7 @@
 //   currentAuthor: {
 //     firstName: '',
 //     lastName: '',
-//     gender: null,
+//     pronoun: null,
 //     birthYear: null,
 //     deathYear: null,
 //     imageURL: '',

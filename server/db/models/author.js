@@ -10,9 +10,8 @@ const Author = db.define('author', {
     type: STRING,
     allowNull: false,
   },
-  gender: {
-    type: ENUM,
-    values: ['female', 'male', 'nonbinary'],
+  pronoun: {
+    type: STRING,
   },
   birthYear: {
     type: INTEGER,

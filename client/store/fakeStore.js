@@ -2,7 +2,7 @@ export const dummyAuthor = {
   id: 1,
   firstName: 'Jane',
   lastName: 'Austen',
-  gender: 'female',
+  pronoun: 'she',
   birthYear: 1775,
   deathYear: 1817,
   imageURL: 'https://upload.wikimedia.org/wikipedia/commons/c/cc/CassandraAusten-JaneAusten%28c.1810%29_hires.jpg',
