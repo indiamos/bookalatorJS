@@ -29,9 +29,9 @@ router.route('/:genreId')
     .catch(next))
   .put((req, res, next) => Genre.findById(req.params.genreId)
     .then(genre => genre.update(req.body), {
-        returning: true,
-        plain: true,
-      })
+      returning: true,
+      plain: true,
+    })
     .then((updated) => {
       const revised = updated.dataValues; // putting this value directly in line 39 errors
       res.send({ message: 'Updated sucessfully', revised });
@@ -44,14 +44,14 @@ router.route('/:genreId')
 
 // GET /api/genres/:genreId/books
 router.get('/:genreId/books', (req, res, next) => Book.findAll({
-    include: [
-      {
-        model: Genre,
-        where: {
-          id: req.params.genreId,
-        },
+  include: [
+    {
+      model: Genre,
+      where: {
+        id: req.params.genreId,
       },
-    ],
-  })
-    .then(genre => res.json(genre))
-    .catch(next));
+    },
+  ],
+})
+  .then(genre => res.json(genre))
+  .catch(next));

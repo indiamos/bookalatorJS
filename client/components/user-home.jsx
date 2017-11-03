@@ -1,20 +1,23 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
+import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 
-/* ------------------------------- COMPONENT -------------------------------- */
+/* ------------------- COMPONENT ------------------- */
 
 export const UserHome = (props) => {
   const { email } = props;
 
   return (
-    <div>
-      <h3>Welcome, {email}</h3>
-    </div>
+    <DocumentTitle title="Home | Bookalator">
+      <div className="user-home">
+        <h3>Welcome, {email}</h3>
+      </div>
+    </DocumentTitle>
   );
 };
 
-/* ------------------------------- CONTAINER -------------------------------- */
+/* ------------------- CONTAINER ------------------- */
 
 const mapState = state => ({
   email: state.user.email,
@@ -22,7 +25,7 @@ const mapState = state => ({
 
 export default connect(mapState)(UserHome);
 
-/* ------------------------------- PROP TYPES ------------------------------- */
+/* ------------------- PROP TYPES ------------------- */
 
 UserHome.propTypes = {
   email: PropTypes.string,

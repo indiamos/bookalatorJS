@@ -53,4 +53,8 @@ const Book = db.define('book', {
   },
 });
 
+Book.prototype.shortTitle = function shortTitle() {
+  return this.title.length > 15 ? `${this.title.slice(0, 15)}…` : this.title;
+};
+
 module.exports = Book;
