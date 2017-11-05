@@ -7,6 +7,7 @@ export { default as BookMetadata } from './BookMetadata';
 export { default as BookSelector } from './BookSelector';
 export { default as BookThumbnail } from './BookThumbnail';
 export { default as BookWordTable } from './BookWordTable';
+export { default as CompareBooks } from './CompareBooks';
 export { Login, Signup } from './auth-form';
 export { default as Main } from './Main';
 export { default as Navbar } from './Navbar';

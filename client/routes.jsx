@@ -4,7 +4,7 @@ import { Router } from 'react-router';
 import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import history from './history';
-import { SingleAuthor, Login, Main, Signup, SingleBook, UserHome } from './components';
+import { CompareBooks, Login, Main, Signup, SingleAuthor, SingleBook, UserHome } from './components';
 import { me } from './store';
 
 /* ------------------------------- COMPONENT ------------------------------- */
@@ -23,7 +23,7 @@ class Routes extends Component {
           <Switch>
             <Route path="/authors/:authorId" component={SingleAuthor} />
             <Route path="/books/:bookId" component={SingleBook} />
-            <Route path="/books" component={SingleBook} />
+            <Route path="/books" component={CompareBooks} />
             {/* Routes placed here are available to all visitors */}
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />

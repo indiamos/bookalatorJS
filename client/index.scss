@@ -100,7 +100,11 @@ img {
   // }
 }
 
-.book-thumbnail {}
+.book-thumbnail {
+  img {
+    max-height: 40vh;
+  }
+}
 
 .book-word-table {
   border: 1px dotted $book-orange;

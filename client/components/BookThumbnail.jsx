@@ -1,3 +1,6 @@
+// Composed in SingleBook as…
+//   <BookThumbnail coverURL={book.coverURL} title={book.title} />
+
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -8,15 +11,13 @@ const BookThumbnail = ({ coverURL, title }) => (
 );
 
 BookThumbnail.propTypes = {
-  // coverURL: PropTypes.string.isRequired,
-  // title: PropTypes.string.isRequired,
-  coverURL: PropTypes.string,
-  title: PropTypes.string,
+  coverURL: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
-BookThumbnail.defaultProps = {
-  coverURL: 'http://placeimg.com/480/640/animals',
-  title: 'The Null Title',
-};
+// BookThumbnail.defaultProps = {
+//   coverURL: 'http://placeimg.com/480/640/animals',
+//   title: 'The Null Title',
+// };
 
 export default BookThumbnail;

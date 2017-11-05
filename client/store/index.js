@@ -29,20 +29,27 @@
 //     pgURL: '',
 //     wikipediaURL: '',
 //   },
+// /* Words ----------------------------------------------- */
+// Words are retrieved separately from book metadata, because they're unwieldy and slow.
+//   leftWordMap: {},
+//   rightWordMap: {},
 // };
 
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import createLogger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import author from './authorReducer';
 import book from './bookReducer';
 import user from './userReducer';
+import words from './wordReducer';
 
-const reducer = combineReducers({ author, book, user });
+const reducer = combineReducers({ author, book, user, words });
 const middleware = applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }));
-const store = createStore(reducer, middleware);
+const store = createStore(reducer, composeWithDevTools(middleware));
 
 export default store;
 export * from './authorReducer';
 export * from './bookReducer';
 export * from './userReducer';
+export * from './wordReducer';

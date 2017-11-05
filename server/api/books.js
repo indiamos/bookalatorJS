@@ -1,6 +1,11 @@
 const router = require('express').Router();
 const natural = require('natural');
-const { Book, Sentence, Word } = require('../db/models');
+const {
+  Author,
+  Book,
+  // Sentence,
+  // Word,
+} = require('../db/models');
 
 module.exports = router;
 
@@ -19,11 +24,19 @@ const sentenceTokenizer = new natural.SentenceTokenizer();
 // GET    /api/books/:bookId/words            // returns all words in a book
 // POST   /api/books/:bookId/words            // stores all of a book’s words
 
-// GET /api/books/
+// GET /api/books/ - returns id, title, year, and author's firstName and lastName;
+//   a full findAll would return the entire text of the book, which is…not great.
 // POST /api/books/
 // Books should be tokenized during the import process—probably as an afterCreate hook.
 router.route('/')
-  .get((req, res, next) => Book.findAll()
+  .get((req, res, next) => Book.findAll({
+    attributes: ['id', 'title', 'year'],
+    include: [{
+      model: Author,
+      as: 'Creators',
+      attributes: ['firstName', 'lastName'],
+    }],
+  })
     .then(books => res.json(books))
     .catch(next))
   .post((req, res, next) => Book.create(req.body)
@@ -34,7 +47,16 @@ router.route('/')
 // PUT /api/books/:bookId
 // DELETE /api/books/:bookId
 router.route('/:bookId')
-  .get((req, res, next) => Book.findById(req.params.bookId)
+// Using findOne instead of findAll for GET, to avoid storing the whole book text unnecessarily
+  .get((req, res, next) => Book.findOne({
+    attributes: ['id', 'title', 'year', 'wordCount', 'uniqueCount', 'coverURL', 'pgURL', 'wikipediaURL', 'sentenceArray', 'wordMap'],
+    where: { id: req.params.bookId },
+    include: [{
+      model: Author,
+      as: 'Creators',
+      attributes: ['firstName', 'lastName'],
+    }],
+  })
     .then(book => res.json(book))
     .catch(next))
   .put((req, res, next) => Book.findById(req.params.bookId)
