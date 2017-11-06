@@ -1,9 +1,10 @@
 import axios from 'axios';
 
 const initialState = {
-  books: [],
-  bookSet1: [],
-  bookSet2: [],
+  bookList: [],
+  // books: [],
+  // bookSet1: [],
+  // bookSet2: [],
   singleBook: {},
 };
 
@@ -48,16 +49,12 @@ export const fetchSingleBook = bookId => dispatch => axios.get(`/api/books/${boo
 /* ------------       REDUCERS     ------------------ */
 
 export default function (state = initialState, action) {
-  const newState = Object.assign({}, state);
   switch (action.type) {
     case GET_BOOK_LIST:
-      newState.bookList = action.bookList;
-      break;
+      return { ...state, bookList: action.bookList };
     case GET_SINGLE_BOOK:
-      newState.singleBook = action.singleBook;
-      break;
+      return { ...state, singleBook: action.singleBook };
     default:
       return state;
   }
-  return newState;
 }

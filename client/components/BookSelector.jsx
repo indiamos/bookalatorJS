@@ -29,7 +29,7 @@ const BookSelector = ({
         <label className="col-xs-12 control-label" htmlFor={`book-picker-${bookNo}`}>Select
         book {bookNo}</label>
         <div className="book-selector-wrapper col-xs-12">
-          <select className="form-control" value={selectedBook || "0"} onChange={() => selectorChange}>
+          <select className="form-control" value={selectedBook || '0'} onChange={() => selectorChange}>
             <option value="0">Choose another book to compare word lists</option>
             {
               bookList.map(({ id, title }) => (
