@@ -24,46 +24,50 @@ import {
 const SingleBook = ({
   book,
   bookList,
-  SelectorChange,
+  selectorChange,
   selectorID,
-}) => (
-  <DocumentTitle title={`${book ? book.shortTitle : 'Single Book'} | Bookalator`}>
-    <div className="single-book col-xs-6 col-sm-6 col-md-6 col-lg-6">
-      <BookSelector
-        bookList={bookList}
-        onChange={() => SelectorChange}
-        selectedBook={book ? book.id : null}
-        selectorID={selectorID}
-      />
-      {book && (
-        <div className="book-details">
-          <div className="book-thumb-meta row">
-            <BookThumbnail coverURL={book.coverURL} title={book.title} />
-            <BookMetadata book={book} />
-          </div>
+}) => {
+  console.log('SingleBook selectorChange', selectorChange);
+  // https://www.dropbox.com/s/6t70idudftle9b3/Screenshot%202017-11-06%2018.11.50.png?dl=0
+  return (
+    <DocumentTitle title={`${book ? book.shortTitle : 'Single Book'} | Bookalator`}>
+      <div className="single-book col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        {selectorChange && <BookSelector
+          bookList={bookList}
+          onChange={selectorChange}
+          selectedBook={book ? book.id : null}
+          selectorID={selectorID}
+        />}
+        {book && (
+          <div className="book-details">
+            <div className="book-thumb-meta row">
+              <BookThumbnail coverURL={book.coverURL} title={book.title} />
+              <BookMetadata book={book} />
+            </div>
 
-          <div className="single-book row">
-            <BookWordTable bookId={book.id} selectorID={selectorID} />
+            <div className="single-book row">
+              <BookWordTable bookId={book.id} selectorID={selectorID} />
+            </div>
           </div>
-        </div>
-      )}
-    </div>
-  </DocumentTitle>
-);
+        )}
+      </div>
+    </DocumentTitle>
+  );
+};
 
 SingleBook.propTypes = {
   book: PropTypes.shape(),
   bookList: PropTypes.arrayOf(
     PropTypes.shape(),
   ),
-  SelectorChange: PropTypes.func,
+  selectorChange: PropTypes.func,
   selectorID: PropTypes.string,
 };
 
 SingleBook.defaultProps = {
   book: null,
   bookList: [],
-  SelectorChange: () => {},
+  selectorChange: () => {},
   selectorID: '',
 };
 

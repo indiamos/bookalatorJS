@@ -27,13 +27,13 @@ class CompareBooks extends Component {
 
   render() {
     const { bookList, leftBook, rightBook } = this.props;
-    console.log('bookList:', bookList);
+    const { leftSelectorChange, rightSelectorChange } = this;
     return (
       <DocumentTitle title="Compare Books | Bookalator">
         <div className="compare-books col-lg-8 col-lg-offset-2">
           {bookList && <div className="row">
-            <SingleBook book={leftBook} bookList={bookList} SelectorChange={this.leftSelectorChange} selectorID="leftSelector" />
-            <SingleBook book={rightBook} bookList={bookList} SelectorChange={this.rightSelectorChange} selectorID="rightSelector" />
+            <SingleBook book={leftBook} bookList={bookList} selectorChange={leftSelectorChange} selectorID="leftSelector" />
+            <SingleBook book={rightBook} bookList={bookList} selectorChange={rightSelectorChange} selectorID="rightSelector" />
           </div>}
         </div>
       </DocumentTitle>
@@ -51,8 +51,8 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   loadBookList() { return dispatch(fetchBookList()); },
-  loadLeftBook(bookId) { return dispatch(fetchSingleBook(bookId)); },
-  loadRightBook(bookId) { return dispatch(fetchSingleBook(bookId)); },
+  loadLeftBook(bookId) { return dispatch(fetchSingleBook(bookId, 'leftBook')); },
+  loadRightBook(bookId) { return dispatch(fetchSingleBook(bookId, 'rightBook')); },
 });
 
 export default connect(mapState, mapDispatch)(CompareBooks);

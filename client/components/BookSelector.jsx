@@ -22,6 +22,8 @@ const BookSelector = ({
   selectedBook,
   selectorID,
 }) => {
+  console.log('BookSelector selectorChange', selectorChange);
+  // https://www.dropbox.com/s/6t70idudftle9b3/Screenshot%202017-11-06%2018.11.50.png?dl=0
   const bookNo = selectorID === 'leftSelector' ? 1 : 2;
   return (
     <form id={selectorID} className="book-selector">
@@ -29,7 +31,7 @@ const BookSelector = ({
         <label className="col-xs-12 control-label" htmlFor={`book-picker-${bookNo}`}>Select
         book {bookNo}</label>
         <div className="book-selector-wrapper col-xs-12">
-          <select className="form-control" value={selectedBook || '0'} onChange={() => selectorChange}>
+          <select className="form-control" value={selectedBook || '0'} onChange={selectorChange}>
             <option value="0">Choose another book to compare word lists</option>
             {
               bookList.map(({ id, title }) => (
@@ -48,13 +50,13 @@ BookSelector.propTypes = {
     PropTypes.shape().isRequired,
   ).isRequired,
   // selectorChange: PropTypes.func.isRequired,
-  selectorChange: PropTypes.func,
+  selectorChange: PropTypes.func.isRequired,
   selectedBook: PropTypes.number, // not the same as singleBook
   selectorID: PropTypes.string.isRequired,
 };
 
 BookSelector.defaultProps = {
-  selectorChange() { console.log('dummy selectorChange was called from BookSelector'); },
+  // selectorChange() { console.log('dummy selectorChange was called from BookSelector'); },
   selectedBook: 1,
 };
 
